@@ -1,118 +1,29 @@
 <!DOCTYPE html>
+
 <html>
-<head>
 
-<script type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="style.css">
+  <head>
 
-</head>
-<body>
+    <!-- <link href = "hit-the-wall.css" rel = "stylesheet" type = "text/css"> -->
+    <!-- <meta name = "description" content = "PoP Vlog 20 - Learn how to do basic collision detection and response in a 2d tile based game world."> -->
+    <meta name = "veiwport" content = "width=device-width">
 
-<center><canvas id="game" width="1000" height="1000"></canvas></center>
+    <title>PoP Vlog - Hit The Wall</title>
 
-<script>
-var ctx = null;
+  </head>
 
-// ---------------MAP-----------------------
-// var gameMap = [
-//     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-//     0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-//     0,1,0,1,0,1,0,0,0,1,0,0,0,0,0,1,1,1,1,0,
-//     0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-//     0,1,0,1,1,1,0,0,0,0,0,0,0,1,0,1,0,1,1,0,
-//     0,1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,0,0,1,0,
-//     0,1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,0,
-//     0,1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,1,0,1,0,
-//     0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0,0,1,0,
-//     0,1,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,0,
-//     0,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,0,1,0,
-//     0,1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,1,0,1,0,
-//     0,1,0,1,0,0,0,1,1,1,1,1,1,1,0,1,1,0,1,0,
-//     0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-//     0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,0,
-//     0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,
-//     0,1,1,1,1,1,1,1,1,1,0,1,0,0,1,0,0,1,1,0,
-//     0,1,1,1,1,1,1,1,1,1,0,1,0,0,1,0,1,1,0,0,
-//     0,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,
-//     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-// ];
+  <body>
 
-var gameMap = [
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,1,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1,1,1,0,
-    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-];
+    <h1>PoP Vlog - Hit The Wall</h1>
 
-// ---------------MAP-----------------------
+    <p>&nbsp;</p> <!-- the output p element -->
 
+    <canvas></canvas>
 
-var tileW = 50, tileH = 50;
-var mapW = 20, mapH = 20;
-var currentSecond = 0, frameCount = 0, framesLastSecond = 0;
+    <p>This example requires a keyboard.</p>
 
-window.onload = function()
-{
-	ctx = document.getElementById('game').getContext("2d");
-	requestAnimationFrame(drawGame);
-	ctx.font = "bold 10pt sans-serif";
-};
+    <script src = "sc.js" type = "text/javascript"></script>
 
-function drawGame()
-{
-	if(ctx==null) { return; }
+  </body>
 
-    var sec = Math.floor(Date.now()/1000);
-	if(sec!=currentSecond)
-	{
-		currentSecond = sec;
-		framesLastSecond = frameCount;
-		frameCount = 1;
-	}
-	else { frameCount++; }
-
-    for(var y = 0; y < mapH; ++y)
-	{
-		for(var x = 0; x < mapW; ++x)
-		{
-
-			switch(gameMap[((y*mapW)+x)])
-			{
-				case 0:
-					ctx.fillStyle = "#4a4f59";
-					break;
-				default:
-					ctx.fillStyle = "#8ad7db";
-			}
-
-			ctx.fillRect( x*tileW, y*tileH, tileW, tileH);
-
-		}
-	}
-
-	ctx.fillStyle = "#ff0000";
-	ctx.fillText("FPS: " + framesLastSecond, 10, 20);
-
-	requestAnimationFrame(drawGame);
-}
-
-
-</script>
-</body>
 </html>
