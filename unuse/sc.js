@@ -75,9 +75,8 @@
   // the game object holds all of our awesome game logic
   game = {
 
-    enemy: {
-
-      color:"#ff9900",
+    enemy_1: {
+      color:"red",
       height:20,
       width:20,
       jumping:false,
@@ -110,20 +109,21 @@
     world: {
 
       columns:19,// just some basic info. no worries
-      rows:10,
+      rows:11,
       tile_size:40,
 
       map:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+           0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,// I went with a smaller map this time
-           0,0,0,0,4,4,4,4,4,4,4,4,4,4,4,0,0,0,0,// 0s represent walkable tiles and everything else
+           0,0,0,0,2,5,5,5,5,5,5,5,5,5,1,0,0,0,0,// 0s represent walkable tiles and everything else
            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,// represents a collision tile or wall tile
-           4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,
-           0,0,0,0,0,4,4,4,4,4,0,0,0,0,0,0,0,0,0,
-           0,0,0,0,0,0,0,0,0,0,0,4,4,4,4,4,0,0,0,// I went with a smaller map this time
+           5,5,5,1,0,0,0,0,0,0,0,0,0,0,0,2,5,5,5,
+           0,0,0,0,0,2,5,5,5,1,0,0,0,0,0,0,0,0,0,
+           0,0,0,0,0,0,0,0,0,0,0,2,5,5,5,1,0,0,0,// I went with a smaller map this time
            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,// 0s represent walkable tiles and everything else
-           4,4,4,4,0,0,0,0,4,4,4,0,0,0,0,4,4,4,4,// represents a collision tile or wall tile
-           0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,// the different numbers correspond to different
-           4,4,4,4,4,4,4,4,4,0,4,4,4,4,4,4,4,4,4,
+           5,5,5,1,0,0,0,0,2,5,1,0,0,0,0,2,5,5,5,// represents a collision tile or wall tile
+           0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,// the different numbers correspond to different
+           4,4,4,4,4,4,4,4,4,6,4,4,4,4,4,4,4,4,4,
     ]},// collision shapes.
 
     // the collision object is used to handle narrow phase collision detection
@@ -187,6 +187,13 @@
       5:function(object, row, column) {
 
         this.topCollision(object, row);
+
+      },
+
+      6:function(object, row, column) {
+
+        // this.topCollision(object, row);
+                
 
       },
 
@@ -285,22 +292,16 @@
 
       // get and use keyboard input
       if (controller.left) {
-
         game.player.velocity_x -= 0.50;
-
       }
 
       if (controller.right) {
-
         game.player.velocity_x += 0.50;
-
       }
 
       if (controller.up && !game.player.jumping) {
-
         game.player.velocity_y = -25;
         game.player.jumping = true;
-
       }
 
       game.player.velocity_y += 1.5; // add gravity
@@ -393,7 +394,7 @@
 
   // basic setup and initialization
   display.buffer.canvas.height = 600;
-  display.buffer.canvas.width = 800;
+  display.buffer.canvas.width = 750;
 
   window.addEventListener("resize", display.resize);
   window.addEventListener("keydown", controller.keyUpDown);
