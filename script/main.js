@@ -44,24 +44,20 @@ function entity(id, x, y, width, height, color, xVelocity, yVelocity, state, sco
 
     }
 
-    this.control = {
-        moveRight : function moveRight() {
-            this.xVelocity += 5;
-        },
-
-        moveLeft : function moveLeft() {
-            this.xVelocity -= 5;
-        },
-
-        jump : function jump() {
-            if (this.state === "grounded") {
-                this.yVelocity -= 20;
-                this.state = "ascending"
-
-            }
-        }
+    this.moveRight = function moveRight() {
+        this.xVelocity += 2;
     }
 
+    this.moveLeft = function moveLeft() {
+        this.xVelocity -= 2;
+    }
+
+    this.jump = function jump() {
+        if (state === "grounded") {
+            this.yVelocity += 20;
+            this.state = "ascending"
+        }
+    }
 }
 
 // ------------------ Declare Platform --------------
@@ -110,13 +106,14 @@ function updateGame() {
     draw.canvas(1200, 750, "#383434"); //render Canvas first
     draw.map(); // than render map
     player.entityUpdate(); // than everything else
+    //console.log(player.xVelocity);
 
     // console.log("x : " + player.x + " | Y : " + player.y);
     // console.log(player.xVelocity);
 }
 
 function game() {
-    player.control.moveRight();
+    player.moveLeft();
     player.updatePos();
     updateGame();
 
