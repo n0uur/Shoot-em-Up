@@ -10,7 +10,7 @@ var player; //declare player Entity
 
 // ----------------------------- Constructor ------------------------------
 
-//          ----------------------- Entity ---------------------
+//        ----------------------- Main Class ---------------------
 
 function Entity(id, x, y, width, height, color) {
     this.id = id;
@@ -70,11 +70,17 @@ function Entity(id, x, y, width, height, color) {
     }
 }
 
+//        -------- Inheritance ---------
+
 function Platform(x, y, width, height, color) {
-    Entity.call(this, x, y, width, height, color);
-    this.test = () => {
-        console.log("Test");
+    this.coordinate = {
+        "x" : x,
+        "y" : y
     }
+    this.width = width;
+    this.height = height;
+    ctx.fillStyle = color;
+    ctx.fillRect(this.coordinate.x, this.coordinate.y, this.width, this.height);
 }
 
 // --------------------- Draw ------------------------
@@ -90,11 +96,7 @@ const draw = {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     },
     map : function drawMap() {
-        // entity("platform", 200, 400, 600, 20, "red");
-        // entity("platform", 0, 700, 300, 20, "red");
-        // entity("platform", 750, 600, 100, 20, "red");
-
-
+        Platform(400, 600, 400, 10, "red");
     }
 }
 
@@ -105,8 +107,6 @@ function load() {
     draw.map();
     player = new Entity("player", 400, 100, 50, 80, "#9ce2a0");
     setInterval(game, 33); // 33ms ~ 30fps
-    var plat = new Platform(10,10,10,10,"red")
-    plat.test();
 }
 
 function updateGame() {
@@ -117,7 +117,7 @@ function updateGame() {
 }
 
 function game() {
-    player.moveLeft();
+    //player.moveLeft();
     player.updatePos();
     updateGame();
 
