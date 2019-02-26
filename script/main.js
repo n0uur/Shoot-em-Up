@@ -10,7 +10,7 @@ var player; //declare player Entity
 
 // ----------------------------- Constructor ------------------------------
 
-//        ----------------------- Main Class ---------------------
+//        ----------------------- Entity ---------------------
 
 function Entity(id, x, y, width, height, color) {
     this.id = id;
@@ -70,7 +70,7 @@ function Entity(id, x, y, width, height, color) {
     }
 }
 
-//        -------- Inheritance ---------
+//         -------- Platform ---------
 
 function Platform(x, y, width, height, color) {
     this.coordinate = {
@@ -82,6 +82,8 @@ function Platform(x, y, width, height, color) {
     ctx.fillStyle = color;
     ctx.fillRect(this.coordinate.x, this.coordinate.y, this.width, this.height);
 }
+
+//          -------- Collide ----------
 
 // --------------------- Draw ------------------------
 
@@ -97,6 +99,7 @@ const draw = {
     },
     map : function drawMap() {
         Platform(400, 600, 400, 10, "red");
+        Platform(600, 200, 200, 10, "red");
     }
 }
 
@@ -105,7 +108,7 @@ const draw = {
 function load() {
     draw.canvas(1200, 750, "#383434");
     draw.map();
-    player = new Entity("player", 400, 100, 50, 80, "#9ce2a0");
+    player = new Entity("player", 500, 100, 50, 80, "#9ce2a0");
     setInterval(game, 33); // 33ms ~ 30fps
 }
 
