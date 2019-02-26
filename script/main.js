@@ -8,68 +8,73 @@ const gForce = 10;
 
 var player; //declare player Entity
 
-// ----------------------------- Entity ------------------------------
+// ----------------------------- Constructor ------------------------------
 
-function entity(id, x, y, width, height, color, xVelocity, yVelocity, state, score) {
+//          ----------------------- Entity ---------------------
+
+function Entity(id, x, y, width, height, color) {
     this.id = id;
-    this.x = x;
-    this.y = y;
+    this.coordinate = {
+        "x" : x,
+        "y" : y
+    }
     this.width = width;
     this.height = height;
     this.color = color;
-    this.xVelocity = xVelocity;
-    this.yVelocity = yVelocity;
-    this.state = state; // there are two state (grounded || airborne)
-    this.score = score;
+    this.velocity = {
+        "x" : 0,
+        "y" : 0
+    }
+    this.state = "grounded"; // there are two state (grounded || airborne)
+    this.score = 0;
 
     this.entityUpdate = function entityUpdate() {
         ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillRect(this.coordinate.x, this.coordinate.y, this.width, this.height);
     }
 
     this.updatePos = function updatePos() {
         if (this.state === "ascending") {
-            if (this.yVelocity === 0) {
+            if (this.velocity.y === 0) {
                 this.state = "descending";
-            } else {this.yVelocity += 5}
+            } else {this.velocity.y += 5}
         }
         else if (this.state === "descending") {
-            if (yVelocity <= 0) {
+            if (velocity.y <= 0) {
                 this.state = "grounded";
             }
         }
 
-        this.y += this.yVelocity + gForce;
-        this.x += this.xVelocity;
+        this.coordinate.y += this.velocity.y + gForce;
+        this.coordinate.x += this.velocity.x;
 
     }
 
     this.moveRight = function moveRight() {
-        this.xVelocity += 2;
+        this.velocity.x += 2;
     }
 
     this.moveLeft = function moveLeft() {
-        this.xVelocity -= 2;
+        this.velocity.x -= 2;
     }
 
     this.jump = function jump() {
         if (state === "grounded") {
-            this.yVelocity += 20;
+            this.velocity.y += 20;
             this.state = "ascending"
         }
     }
+
+    this.shoot = function shoot() {
+
+    }
 }
 
-// ------------------ Declare Platform --------------
-
-function platform(x, y, width, height, color) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.color = color
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+function Platform(x, y, width, height, color) {
+    Entity.call(this, x, y, width, height, color);
+    this.test = () => {
+        console.log("Test");
+    }
 }
 
 // --------------------- Draw ------------------------
@@ -85,9 +90,9 @@ const draw = {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     },
     map : function drawMap() {
-        platform(200, 400, 600, 20, "red");
-        platform(0, 700, 300, 20, "red");
-        platform(750, 600, 100, 20, "red");
+        // entity("platform", 200, 400, 600, 20, "red");
+        // entity("platform", 0, 700, 300, 20, "red");
+        // entity("platform", 750, 600, 100, 20, "red");
 
 
     }
@@ -98,18 +103,17 @@ const draw = {
 function load() {
     draw.canvas(1200, 750, "#383434");
     draw.map();
-    player = new entity("player", 400, 100, 50, 80, "#9ce2a0", 0, 0, "grounded", 0);
+    player = new Entity("player", 400, 100, 50, 80, "#9ce2a0");
     setInterval(game, 33); // 33ms ~ 30fps
+    var plat = new Platform(10,10,10,10,"red")
+    plat.test();
 }
 
 function updateGame() {
     draw.canvas(1200, 750, "#383434"); //render Canvas first
     draw.map(); // than render map
     player.entityUpdate(); // than everything else
-    //console.log(player.xVelocity);
 
-    // console.log("x : " + player.x + " | Y : " + player.y);
-    // console.log(player.xVelocity);
 }
 
 function game() {
