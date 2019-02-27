@@ -7,6 +7,7 @@ const ctx = canvas.getContext("2d");
 const gForce = 10;
 
 var player; //declare player Entity
+var level = [];
 
 // ----------------------------- Constructor ------------------------------
 
@@ -81,9 +82,39 @@ function Platform(x, y, width, height, color) {
     this.height = height;
     ctx.fillStyle = color;
     ctx.fillRect(this.coordinate.x, this.coordinate.y, this.width, this.height);
+    return this;
 }
 
 //          -------- Collide ----------
+
+function isPlayerCollide(arr) {
+    // define player border
+    let playerHead = player.coordinate.y;
+    let playerBottom = player.coordinate.y - player.height;
+    let playerLeft = player.coordinate.x;
+    let playerRight = player.coordinate.x + player.width;
+    // check every object in array
+    for (i = 0; i < arr.length; i++) {
+        let objHead = arr[i].coordinate.y;
+        let objBottom = arr[i].coordinate.y - arr[i].height;
+        let objLeft = arr[i].coordinate.x;
+        let objRight = arr[i].coordinate.x + arr[i].width;
+
+        if (playerHead <= objHead) { //top
+            player.velocity.y -= player.velocity.y;
+        }
+        if (playerBottom > objBottom && playerRight >=  objLeft && playerLeft <= objRight) { //bottom
+            player.velocity.y -=  gForce;
+            console.log("bottom!");
+        }
+        if(0) { //left
+            console.log(0)
+        }
+        if(0) { //right
+            console.log(0)
+        }
+    }
+}
 
 // --------------------- Draw ------------------------
 
@@ -97,19 +128,21 @@ const draw = {
         ctx.fillStyle = this.color;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     },
-    map : function drawMap() {
-        Platform(400, 600, 400, 10, "red");
-        Platform(600, 200, 200, 10, "red");
+    map : function drawMap() { // Draw map and keep all platform in array
+        level.push(
+            Platform(400, 600, 400, 10, "red"),
+            //Platform(600, 200, 200, 10, "red")
+        );
     }
 }
 
-// -------------- Game init --------------------------
+// ---------------------- Game init --------------------------
 
 function load() {
     draw.canvas(1200, 750, "#383434");
     draw.map();
     player = new Entity("player", 500, 100, 50, 80, "#9ce2a0");
-    setInterval(game, 33); // 33ms ~ 30fps
+    setInterval(game, 200); // 33ms ~ 30fps
 }
 
 function updateGame() {
@@ -121,6 +154,7 @@ function updateGame() {
 
 function game() {
     //player.moveLeft();
+    isPlayerCollide(level);
     player.updatePos();
     updateGame();
 
