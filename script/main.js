@@ -4,10 +4,10 @@
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const gForce = 10;
+const gForce = 10; // gravity constant
 
 var player; //declare player Entity
-var level = [];
+var level = []; //this array will contain all the platform to check collision
 
 // ----------------------------- Constructor ------------------------------
 
