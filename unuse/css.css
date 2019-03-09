@@ -1,0 +1,146 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/*Title*/
+
+.title {
+    width: cover;
+    min-width: 1800px;
+    height: 964px;
+    margin-bottom: 10px;
+    background-color: red;
+}
+
+/*Title*/
+
+/*===========================================================*/
+
+/*Container*/
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    min-width: 1800px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/*===========================================================*/
+.game_left {
+    background-color: red;
+    width: 100%;
+    height: 500px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+/*===========================================================*/
+.game_right {
+    background-color: red;
+    width: 100%;
+    height: 500px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+/*===========================================================*/
+.game {
+    min-width:1000px;
+    min-height:500px;
+    background-color: red;
+}
+/*===========================================================*/
+ul.point{
+    top: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    padding: 10px;
+}
+
+li.point{
+    float: center;
+}
+
+li a.point {
+    border-radius: 0.5em;
+    margin-bottom: 5px;
+    display: block;
+    color: black;
+    background-color: gray;
+    text-align: left;
+    padding: 11.1px;
+    text-decoration: none;
+    transition-duration: 0.5s;
+}
+
+li a:hover:not(.point_1) {
+    color: black;
+    background-color: green;
+}
+
+li a.point_1 {
+    border-radius: 0.5em;
+    margin-bottom: 5px;
+    display: block;
+    color: black;
+    background-color: gray;
+    text-align: left;
+    padding: 11.1px;
+    text-decoration: none;
+    color: black;
+    background-color: yellow;
+}
+
+/*Container*/
+
+/*===========================================================*/
+
+/*Bar*/
+
+ul.bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    min-width: 1800px;
+}
+
+li.bar {
+    float: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+li a.bar {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/*Bar*/
+
+/*===========================================================*/
+
+/*Bottom_tile*/
+
+.bottom_title {
+    width: cover;
+    min-width: 1800px;
+    height: 964px;
+    background-color: red;
+}
+
+/*Bottom_tile*/
+
+/*===========================================================*/
