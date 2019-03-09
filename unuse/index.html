@@ -3,19 +3,35 @@
 <head>
     <title>Game</title>
     <link rel="stylesheet" type="text/css" href="css.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-<body>
+<body onload="load()">
     <div class="title">
-
     </div>
     <ul class="bar">
       <li class="bar"><a class="bar">Home</a></li>
-      <li class="bar"><a class="bar">News</a></li>
+      <li class="bar"><a class="bar">Game</a></li>
       <li class="bar"><a class="bar">Contact</a></li>
     </ul>
     <div class="container">
-        <div class="game_left"></div>
-        <div class="game"></div>
+        <div class="game_left">
+            <ul class="point">
+              <li class="point"><a class="point_1"> Tae : 9999999999 </a></li>
+              <li class="point"><a class="point"> Tae : 9999999999 </a></li>
+              <li class="point"><a class="point"> Tae : 9999999999 </a></li>
+              <li class="point"><a class="point"> Tae : 9999999999 </a></li>
+              <li class="point"><a class="point"> Tae : 9999999999 </a></li>
+              <li class="point"><a class="point"> Tae : 9999999999 </a></li>
+              <li class="point"><a class="point"> Tae : 9999999999 </a></li>
+              <li class="point"><a class="point"> Tae : 9999999999 </a></li>
+              <li class="point"><a class="point"> Tae : 9999999999 </a></li>
+              <li class="point"><a class="point"> Tae : 9999999999 </a></li>
+            </ul>
+        </div>
+        <div class="game">
+            <center><canvas id="canvas"></canvas></center>
+            <script src="../script/main.js"></script>
+        </div>
         <div class="game_right">
             <ul class="point">
               <li class="point"><a class="point_1"> Tae : 9999999999 </a></li>

@@ -29,8 +29,11 @@ function Entity(x, y, width, height, color) {
         ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
-    
+
     this.updatePos = function updatePos() {
+        if (this.y == 270) {
+            gForce = 0;
+        }
         this.y += this.yVelocity + gForce;
         this.x += this.xVelocity;
     }
@@ -59,7 +62,7 @@ const draw = {
     },
     map : function drawMap() { // Draw map and keep all platform in array
         level.push(
-            Rectangle(400, 600, 400, 10, "red")
+            Rectangle(410, 350, 200, 10, "red")
         );
     }
 }
@@ -74,7 +77,7 @@ function load() {
 }
 
 function render() {
-    draw.canvas(1200, 750, "#383434"); //render Canvas first
+    draw.canvas(1000, 500, "#383434"); //render Canvas first
     draw.map(); // than render map
     player.entityUpdate(); // than everything else
 

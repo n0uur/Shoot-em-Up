@@ -10,7 +10,10 @@ body {
     min-width: 1800px;
     height: 964px;
     margin-bottom: 10px;
-    background-color: red;
+    background-image: url("img/bg.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 /*Title*/
