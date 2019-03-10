@@ -5,7 +5,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const gForce = 10;
-var player;
+var player; 
 level = [];
 
 
@@ -23,6 +23,7 @@ function Entity(x, y, width, height, color) {
     this.xVelocity = 0;
     this.yVelocity = 0;
     this.score = 0;
+    this.status = 0;
 
     this.entityUpdate = function entityUpdate() {
         ctx.fillStyle = color;
@@ -35,15 +36,38 @@ function Entity(x, y, width, height, color) {
     }
 
     this.moveRight = () => {
-        this.xVelocity = 4;
+        this.xVelocity = 10;
     }
 
     this.moveLeft = () => {
-        this.xVelocity = -4;
+        this.xVelocity = -10;
     }
 
     this.jump = () => {
-        this.yVelocity = -4;
+        this.yVelocity = -70;
+    }
+}
+
+
+document.onkeydown = document.body.onkeydown = function(e){
+	  if(e.keyCode == 68) {
+	  	player.moveRight();
+	  } else if (e.keyCode == 65){ 
+	  	player.moveLeft();
+	  }
+    }
+
+document.onkeyup = document.body.onkeyup = function(e){
+	  if(e.keyCode == 68 || e.keyCode == 65) {
+        player.xVelocity = 0;
+      } else if(e.keyCode == 32){
+        player.yVelocity = 0;
+      }
+    }
+
+document.onkeypress = document.onkeypress = function(e){
+    if(e.keyCode == 32){
+        player.jump();
     }
 }
 
