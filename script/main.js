@@ -82,22 +82,25 @@ const draw = {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     },
     map : function drawMap() { // Draw map and keep all platform in array
-        let platform1 = new Rectangle(0,0,1200,10, "red");//top
-        let platform2 = new Rectangle(0,0,10,750, "red");//left
-        let platform3 = new Rectangle(990,0,10,750, "red");//right
-        let platform4 = new Rectangle(0,490,1200,10, "red");//bottom
-        level = [platform1, platform2, platform3, platform4];
+        let platform1 = new Rectangle(370,170,300,10, "red");//top1
+        let platform2 = new Rectangle(170,370,300,10, "red");//top2
+        let platform3 = new Rectangle(570,370,300,10, "red");//top3
+        level = [platform1, platform2, platform3];
         
     }
 }
 function collisionDetector(obj) {
     for (let i = 0; i < level.length; i++) {
-        if ((obj.y+obj.height) == (490)) {
+        let pat1 = ((obj.y+obj.height) == (170)&&((obj.x+obj.width >= (370))&&(obj.x <= 670)));
+        let pat2 = (((obj.y+obj.height) == (370))&&(obj.x+obj.width >= (170))&&(obj.x <= 470));
+        let pat3 = (((obj.y+obj.height) == (370))&&(obj.x+obj.width >= (570))&&(obj.x <= 870));
+        if(pat1 || pat2 || pat3){
             obj.gForce = 0;
         }
         else{
             obj.gForce = 10;
         }
+        
     }
 }
 
