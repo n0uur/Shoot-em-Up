@@ -1,11 +1,14 @@
 body {
     padding: 0;
     margin: 0;
+}
+
+.bar {
+    padding: 0;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-color: black;
 }
 
 img {
@@ -16,6 +19,13 @@ img {
     height: 100%;
 }
 
+p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
 ul {
     /*background-color: blue;*/
@@ -26,19 +36,18 @@ ul {
 
 }
 
-ul li {
+li {
     position: relative;
     list-style: none;
-    margin: auto 70px; 
+    margin: auto 70px;
     width: 150px;
     height: 150px;
     border-radius: 50%;
     box-sizing: border-box;
-    /*background-color: red;*/
     transition-duration: 0.5s;
 }
 
-ul li:hover {
+li:hover {
     width: 200px;
     height: 200px;
 }
@@ -47,13 +56,14 @@ ul li:hover {
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
-    transition: 1s;
-    /*animation: animate 0.5s linear infinite;*/
+    border-radius: 100%;
+    transition: 0.5s;
+    animation: animate 5s linear infinite;
+    animation-play-state: running;
 }
 
-.loder:hover {
-    animation: animate 0.5s linear infinite;
+.loader:hover {
+    animation-play-state: paused;
 }
 
 @keyframes animate {
@@ -61,7 +71,7 @@ ul li:hover {
         transform: rotate(0deg);
     }
     100% {
-        transform: rotate(360deg);   
+        transform: rotate(360deg);
     }
 }
 
@@ -70,7 +80,7 @@ ul li:hover {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: linear-gradient(#14ffe5, #ffeb3b, #ff00e0); 
+    background: linear-gradient(#14ffe5, #ffeb3b, #ff00e0);
 }
 
 .loader span:nth-child(1) {
@@ -84,4 +94,15 @@ ul li:hover {
 }
 .loader span:nth-child(4) {
     filter: blur(50px);
+}
+
+
+.img_title {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    width: 800px;
+    height: 400px;
+    background-color: red;
 }
