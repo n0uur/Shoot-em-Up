@@ -5,7 +5,7 @@ body {
 
 .bar {
     padding: 0;
-    margin: 0;
+    margin-top: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,7 +33,6 @@ ul {
     padding: 0;
     display: flex;
     height: 500px;
-
 }
 
 li {
@@ -58,8 +57,9 @@ li:hover {
     height: 100%;
     border-radius: 100%;
     transition: 0.5s;
-    animation: animate 5s linear infinite;
+    animation: animate 0.8s linear infinite;
     animation-play-state: running;
+    box-shadow: 0px 0px 3px 6px #2d2d2d;
 }
 
 .loader:hover {
@@ -80,7 +80,7 @@ li:hover {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: linear-gradient(#14ffe5, #ffeb3b, #ff00e0);
+    background: linear-gradient(#595959, #727272, #353535);
 }
 
 .loader span:nth-child(1) {
@@ -96,13 +96,17 @@ li:hover {
     filter: blur(50px);
 }
 
-
-.img_title {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 60px;
+p {
+    border: 7px solid #383434;
+    padding: 0;
+    font-size: 100px;
     width: 800px;
-    height: 400px;
-    background-color: red;
+    height: 150px;
+    position: fixed;
+    margin: auto;
+    margin-top: 100px;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
 }
