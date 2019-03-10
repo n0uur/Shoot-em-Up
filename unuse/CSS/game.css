@@ -3,21 +3,6 @@ body {
     padding: 0;
 }
 
-/*Title*/
-
-.title {
-    width: cover;
-    min-width: 1800px;
-    height: 964px;
-    margin-bottom: 10px;
-    background-image: url("img/bg.gif");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-
-/*Title*/
-
 /*===========================================================*/
 
 /*Container*/
