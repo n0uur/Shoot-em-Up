@@ -49,8 +49,9 @@ function Entity(x, y, width, height, color) {
     return this;
 }
 
+// ---------- Movement Handler ----------
 
-document.onkeydown = document.body.onkeydown = function(e){
+document.onkeydown = document.body.onkeydown = (e) => {
 	  if(e.keyCode == 68) {
 	  	player.moveRight();
 	  } else if (e.keyCode == 65){ 
@@ -58,19 +59,22 @@ document.onkeydown = document.body.onkeydown = function(e){
 	  }
     }
 
-document.onkeyup = document.body.onkeyup = function(e){
+document.onkeyup = document.body.onkeyup = (e) => {
 	  if(e.keyCode == 68 || e.keyCode == 65) {
         player.xVelocity = 0;
-      } else if(e.keyCode == 32){
+      }
+      if(e.keyCode == 32){
         player.yVelocity = 0;
       }
     }
 
-document.onkeypress = document.onkeypress = function(e){
+document.onkeypress = document.onkeypress = (e) => {
     if(e.keyCode == 32){
         player.jump();
     }
 }
+
+// ---------- Game Function ----------
 
 const draw = {
     canvas : function drawCanvas(width, height, color) {

@@ -4,38 +4,13 @@ body {
 }
 
 /*===========================================================*/
-
-/*Container*/
-
-.container {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    min-width: 1800px;
-    height: 500px;
-    margin-top: 30px;
-}
-/*===========================================================*/
-.game_left {
-    background-color: red;
-    width: 100%;
-    height: 500px;
-    margin-right: 10px;
-    margin-left: 10px;
-}
-/*===========================================================*/
-.game_right {
-    background-color: red;
-    width: 100%;
-    height: 500px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
 /*===========================================================*/
 .game {
     min-width:1000px;
     min-height:500px;
     background-color: red;
+    height: 500px;
+    width: 1000px;
 }
 /*===========================================================*/
 ul.point{
