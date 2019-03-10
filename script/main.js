@@ -4,10 +4,8 @@
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const gForce = 10;
 var player; 
-level = [];
-
+var level = [];
 
 function Rectangle(x, y, width, height, color) {
     this.x = x;
@@ -16,6 +14,7 @@ function Rectangle(x, y, width, height, color) {
     this.height = height;
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
+    return this;
 }
 
 function Entity(x, y, width, height, color) {
@@ -23,7 +22,8 @@ function Entity(x, y, width, height, color) {
     this.xVelocity = 0;
     this.yVelocity = 0;
     this.score = 0;
-    this.status = 0;
+    //this.status = 0;
+    this.gForce = 10;
 
     this.entityUpdate = function entityUpdate() {
         ctx.fillStyle = color;
@@ -31,7 +31,7 @@ function Entity(x, y, width, height, color) {
     }
 
     this.updatePos = function updatePos() {
-        this.y += this.yVelocity + gForce;
+        this.y += this.yVelocity + this.gForce;
         this.x += this.xVelocity;
     }
 
@@ -44,8 +44,9 @@ function Entity(x, y, width, height, color) {
     }
 
     this.jump = () => {
-        this.yVelocity = -70;
+        this.yVelocity = -20;
     }
+    return this;
 }
 
 
@@ -81,9 +82,22 @@ const draw = {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     },
     map : function drawMap() { // Draw map and keep all platform in array
-        level.push(
-            Rectangle(410, 350, 200, 10, "red")
-        );
+        let platform1 = new Rectangle(0,0,1200,10, "red");//top
+        let platform2 = new Rectangle(0,0,10,750, "red");//left
+        let platform3 = new Rectangle(990,0,10,750, "red");//right
+        let platform4 = new Rectangle(0,490,1200,10, "red");//bottom
+        level = [platform1, platform2, platform3, platform4];
+        
+    }
+}
+function collisionDetector(obj) {
+    for (let i = 0; i < level.length; i++) {
+        if ((obj.y+obj.height) == (490)) {
+            obj.gForce = 0;
+        }
+        else{
+            obj.gForce = 10;
+        }
     }
 }
 
@@ -104,7 +118,8 @@ function render() {
 }
 
 function game() { //update here
+    collisionDetector(player);
     player.updatePos();
+    console.log("player", player.gForce);
     render();
-
 }
