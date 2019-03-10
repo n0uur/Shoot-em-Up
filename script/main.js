@@ -45,6 +45,7 @@ function Entity(x, y, width, height, color) {
 
     this.jump = () => {
         this.yVelocity = -20;
+        tap2 = 1;
     }
     return this;
 }
@@ -94,17 +95,14 @@ const draw = {
     }
 }
 function collisionDetector(obj) {
-    for (let i = 0; i < level.length; i++) {
-        let pat1 = ((obj.y+obj.height) == (170)&&((obj.x+obj.width >= (370))&&(obj.x <= 670)));
-        let pat2 = (((obj.y+obj.height) == (370))&&(obj.x+obj.width >= (170))&&(obj.x <= 470));
-        let pat3 = (((obj.y+obj.height) == (370))&&(obj.x+obj.width >= (570))&&(obj.x <= 870));
-        if(pat1 || pat2 || pat3){
-            obj.gForce = 0;
-        }
-        else{
-            obj.gForce = 10;
-        }
-        
+    let pat1 = (((obj.y+obj.height) == level[0].y)&&((obj.x+obj.width >= level[0].x)&&(obj.x <= level[0].x+level[0].width)));
+    let pat2 = (((obj.y+obj.height) == level[1].y)&&((obj.x+obj.width >= level[1].x)&&(obj.x <= level[1].x+level[1].width)));
+    let pat3 = (((obj.y+obj.height) == level[2].y)&&((obj.x+obj.width >= level[2].x)&&(obj.x <= level[2].x+level[2].width)));
+    if(pat1 || pat2 || pat3){
+        obj.gForce = 0;
+    }
+    else{
+        obj.gForce = 10;
     }
 }
 
@@ -127,6 +125,5 @@ function render() {
 function game() { //update here
     collisionDetector(player);
     player.updatePos();
-    console.log("player", player.gForce);
     render();
 }
