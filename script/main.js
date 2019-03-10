@@ -14,7 +14,6 @@ function Rectangle(x, y, width, height, color) {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.color = color;
     ctx.fillStyle = color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
 }
@@ -31,9 +30,6 @@ function Entity(x, y, width, height, color) {
     }
 
     this.updatePos = function updatePos() {
-        if (this.y == 270) {
-            gForce = 0;
-        }
         this.y += this.yVelocity + gForce;
         this.x += this.xVelocity;
     }
