@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dev Team</title>
+	<link rel="stylesheet" type="text/css" href="CSS/dev.css">
+	<link rel="stylesheet" type="text/css" href="CSS/swiper.min.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.sidebarBtn').click(function(){
+                $('.sidebar').toggleClass('active');
+                $('.sidebarBtn').toggleClass('toggle');
+            })
+        })
+    </script>
+</head>
+<body>
+	<!-- <div class="container"> -->
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+			  <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/1)">
+			  	
+			  </div>
+			  <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/2)">
+			  	
+			  </div>
+			  <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/3)">
+			  	
+			  </div>
+			  <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/4)">
+			  	
+			  </div>
+			  <div class="swiper-slide" style="background-image:url(http://lorempixel.com/600/600/nature/5)">
+			  	
+			  </div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	<!-- </div> -->
+	<div class="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">How To Play</a></li>
+            <li><a href="#">Score Board</a></li>
+            <li><a href="#">Dev Team</a></li>
+        </ul>
+        <button class="sidebarBtn">
+            <span></span>
+        </button>
+    </div>
+    <script type="text/javascript" src="JS/swiper.min.js"></script>
+    <script>
+	    var swiper = new Swiper('.swiper-container', {
+	      effect: 'cube',
+	      grabCursor: true,
+	      cubeEffect: {
+	        shadow: true,
+	        slideShadows: true,
+	        shadowOffset: 20,
+	        shadowScale: 0.94,
+	      },
+	      pagination: {
+	        el: '.swiper-pagination',
+	      },
+	    });
+	  </script>
+</body>
+</html>
