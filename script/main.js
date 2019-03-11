@@ -7,6 +7,8 @@ const ctx = canvas.getContext("2d");
 var player;
 var enemy;
 var level = [];
+var counterJ;
+var statusjump=0;
 
 
 function Rectangle(x, y, width, height, color) {
@@ -47,6 +49,7 @@ function Entity(x, y, width, height, color) {
 
     this.jump = () => {
         this.yVelocity = -20;
+        statusjump = 1;
     }
     return this;
 }
@@ -79,7 +82,7 @@ document.body.addEventListener('keydown', function(e){
         player.status = 0;
     } else if (e.code == 'KeyW' && player.status == 1){
         player.jump();
-        status = 0;
+        player.status = 0;
     
 }
 });
@@ -131,11 +134,25 @@ function warpPlayer(player){
     else if(player.x > 1000){
         player.x = 0;
     }
-    else if(player.y+player.height < -40){
-        player.y = 500;
-    }
     else if(player.y > 500){
         player.y = -50;
+    }
+}
+
+function Jtest(player){ // counterj = Y (before jump)
+    let j1 = (((player.y+player.height) == level[0].y)&&((player.x+player.width >= level[0].x)&&(player.x <= level[0].x+level[0].width))&&(statusjump == 0));
+    let j2 = (((player.y+player.height) == level[1].y)&&((player.x+player.width >= level[1].x)&&(player.x <= level[1].x+level[1].width))&&(statusjump == 0));
+    let j3 = (((player.y+player.height) == level[2].y)&&((player.x+player.width >= level[2].x)&&(player.x <= level[2].x+level[2].width))&&(statusjump == 0));
+    if(j1 || j2 || j3){
+        counterJ = player.y;
+    }
+    else if(player.yVelocity ==-20){
+        if(player.y+player.height == counterJ-120){
+            player.yVelocity = 0;
+        }
+    }
+    else if((player.yVelocity ==0) && (statusjump == 1) && (player.gForce == 0)){
+        statusjump = 0;
     }
 }
 
@@ -144,8 +161,8 @@ function warpPlayer(player){
 function load() {
     draw.canvas(1200, 750, "#383434");
     draw.map();
-    player = new Entity(500, 100, 50, 80, "#9ce2a0");
-    enemy = new Entity(400, 50, 50, 80, "pink")
+    player = new Entity(500, 10, 50, 80, "#9ce2a0");
+    enemy = new Entity(300, 50, 50, 80, "pink")
     setInterval(game, 33); // 33ms ~ 30fps (defalut = 33ms)
 }
 
@@ -162,6 +179,8 @@ function game() { //update here
     warpPlayer(player);
     warpPlayer(enemy);
     testEnemy();
+    Jtest(player); // player.y(before jump)
+    console.log(player.y, counterJ, statusjump);
     player.updatePos();   
     enemy.updatePos();
     render();
