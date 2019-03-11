@@ -102,6 +102,7 @@ function collisionDetector(obj) {
     }
     else{
         obj.gForce = 10;
+        status = 0;
     }
 }
 function warpPlayer(player){
