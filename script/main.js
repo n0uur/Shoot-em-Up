@@ -46,6 +46,7 @@ function Entity(x, y, width, height, color) {
 
     this.jump = () => {
         this.yVelocity = -20;
+        tap2 = 1;
     }
     return this;
 }
@@ -61,8 +62,6 @@ document.body.addEventListener('keydown', function(e){
     } else if (e.code == 'KeyW' && status == 1){
         player.jump();
         status = 0;
-    } else if (e.code == 'KeyF' && status == 0){
-        status = 1;
     }
 });
 
@@ -75,27 +74,6 @@ document.body.addEventListener('keyup', function(e){
         player.yVelocity = 0;
     }
 });
-// document.onkeydown = document.body.onkeydown = function(e){
-// 	  if(e.keyCode == 68) {
-// 	  	player.moveRight();
-// 	  } else if (e.keyCode == 65){ 
-// 	  	player.moveLeft();
-// 	  }
-//     }
-
-// document.onkeyup = document.body.onkeyup = function(e){
-// 	  if(e.keyCode == 68 || e.keyCode == 65) {
-//         player.xVelocity = 0;
-//       } else if(e.keyCode == 32){
-//         player.yVelocity = 0;
-//       }
-//     }
-
-// document.onkeypress = document.onkeypress = function(e){
-//     if(e.keyCode == 32){
-//         player.jump();
-//     }
-// }
 
 const draw = {
     canvas : function drawCanvas(width, height, color) {
@@ -120,6 +98,7 @@ function collisionDetector(obj) {
     let pat3 = (((obj.y+obj.height) == level[2].y)&&((obj.x+obj.width >= level[2].x)&&(obj.x <= level[2].x+level[2].width)));
     if(pat1 || pat2 || pat3){
         obj.gForce = 0;
+        status = 1;
     }
     else{
         obj.gForce = 10;
@@ -145,7 +124,7 @@ function warpPlayer(player){
 function load() {
     draw.canvas(1200, 750, "#383434");
     draw.map();
-    player = new Entity(500, 0, 50, 80, "#9ce2a0");
+    player = new Entity(500, 100, 50, 80, "#9ce2a0");
     setInterval(game, 33); // 33ms ~ 30fps (defalut = 33ms)
 }
 
