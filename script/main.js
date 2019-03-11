@@ -4,9 +4,10 @@
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-var player; 
+var player;
+var enemy;
 var level = [];
-var status = 1;
+
 
 function Rectangle(x, y, width, height, color) {
     this.x = x;
@@ -23,7 +24,7 @@ function Entity(x, y, width, height, color) {
     this.xVelocity = 0;
     this.yVelocity = 0;
     this.score = 0;
-    //this.status = 0;
+    this.status = 0;
     this.gForce = 10;
 
     this.entityUpdate = function entityUpdate() {
@@ -46,9 +47,26 @@ function Entity(x, y, width, height, color) {
 
     this.jump = () => {
         this.yVelocity = -20;
-        tap2 = 1;
     }
     return this;
+}
+
+function testEnemy(){
+    let xDiff = player.x - enemy.x;
+    if(Math.abs(xDiff) <= 150){
+        if(player.x > enemy.x){
+            enemy.xVelocity = 6;
+        } else if(player.x < enemy.x){
+            enemy.xVelocity = -6;
+        }
+    } else {
+        let x = Math.floor(Math.random() * 30) + 1;
+        if(x == 1){
+            enemy.xVelocity = 4;
+        } else if(x == 2){
+            enemy.xVelocity = -4;
+        }
+    }
 }
 
 document.body.addEventListener('keydown', function(e){
@@ -56,13 +74,14 @@ document.body.addEventListener('keydown', function(e){
         player.moveRight();
     } else if (e.code == 'KeyA'){ 
         player.moveLeft();
-    } else if (e.code == 'Space' && status == 1){
+    } else if (e.code == 'Space' && player.status == 1){
+        player.jump();
+        player.status = 0;
+    } else if (e.code == 'KeyW' && player.status == 1){
         player.jump();
         status = 0;
-    } else if (e.code == 'KeyW' && status == 1){
-        player.jump();
-        status = 0;
-    }
+    
+}
 });
 
 document.body.addEventListener('keyup', function(e){
@@ -98,11 +117,11 @@ function collisionDetector(obj) {
     let pat3 = (((obj.y+obj.height) == level[2].y)&&((obj.x+obj.width >= level[2].x)&&(obj.x <= level[2].x+level[2].width)));
     if(pat1 || pat2 || pat3){
         obj.gForce = 0;
-        status = 1;
+        obj.status = 1;
     }
     else{
         obj.gForce = 10;
-        status = 0;
+        obj.status = 0;
     }
 }
 function warpPlayer(player){
@@ -126,6 +145,7 @@ function load() {
     draw.canvas(1200, 750, "#383434");
     draw.map();
     player = new Entity(500, 100, 50, 80, "#9ce2a0");
+    enemy = new Entity(400, 50, 50, 80, "pink")
     setInterval(game, 33); // 33ms ~ 30fps (defalut = 33ms)
 }
 
@@ -133,12 +153,16 @@ function render() {
     draw.canvas(1000, 500, "#383434"); //render Canvas first
     draw.map(); // than render map
     player.entityUpdate(); // than everything else
-
+    enemy.entityUpdate();
 }
 
 function game() { //update here
     collisionDetector(player);
+    collisionDetector(enemy);
     warpPlayer(player);
-    player.updatePos();
+    warpPlayer(enemy);
+    testEnemy();
+    player.updatePos();   
+    enemy.updatePos();
     render();
 }
