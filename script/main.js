@@ -6,6 +6,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 var player; 
 var level = [];
+var status = 1;
 
 function Rectangle(x, y, width, height, color) {
     this.x = x;
@@ -49,32 +50,52 @@ function Entity(x, y, width, height, color) {
     return this;
 }
 
-// ---------- Movement Handler ----------
-
-document.onkeydown = document.body.onkeydown = (e) => {
-    if(e.keyCode == 68) {
+document.body.addEventListener('keydown', function(e){
+    if(e.code == 'KeyD') {
         player.moveRight();
-    } else if (e.keyCode == 65){ 
+    } else if (e.code == 'KeyA'){ 
         player.moveLeft();
+    } else if (e.code == 'Space' && status == 1){
+        player.jump();
+        status = 0;
+    } else if (e.code == 'KeyW' && status == 1){
+        player.jump();
+        status = 0;
+    } else if (e.code == 'KeyF' && status == 0){
+        status = 1;
     }
-  }
+});
 
-document.onkeyup = document.body.onkeyup = (e) => {
-    if(e.keyCode == 68 || e.keyCode == 65) {
-      player.xVelocity = 0;
+document.body.addEventListener('keyup', function(e){
+    if(e.code == 'KeyD' || e.code == 'KeyA') {
+        player.xVelocity = 0;
+    } else if(e.code == 'Space'){
+        player.yVelocity = 0;
+    } else if(e.code == 'KeyW'){
+        player.yVelocity = 0;
     }
-    if(e.keyCode == 32){
-      player.yVelocity = 0;
-    }
-  }
+});
+// document.onkeydown = document.body.onkeydown = function(e){
+// 	  if(e.keyCode == 68) {
+// 	  	player.moveRight();
+// 	  } else if (e.keyCode == 65){ 
+// 	  	player.moveLeft();
+// 	  }
+//     }
 
-document.onkeypress = document.onkeypress = (e) => {
-  if(e.keyCode == 32){
-      player.jump();
-  }
-}
+// document.onkeyup = document.body.onkeyup = function(e){
+// 	  if(e.keyCode == 68 || e.keyCode == 65) {
+//         player.xVelocity = 0;
+//       } else if(e.keyCode == 32){
+//         player.yVelocity = 0;
+//       }
+//     }
 
-// ---------- Game Function ----------
+// document.onkeypress = document.onkeypress = function(e){
+//     if(e.keyCode == 32){
+//         player.jump();
+//     }
+// }
 
 const draw = {
     canvas : function drawCanvas(width, height, color) {
