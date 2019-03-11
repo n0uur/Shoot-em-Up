@@ -45,7 +45,6 @@ function Entity(x, y, width, height, color) {
 
     this.jump = () => {
         this.yVelocity = -20;
-        tap2 = 1;
     }
     return this;
 }
@@ -53,26 +52,26 @@ function Entity(x, y, width, height, color) {
 // ---------- Movement Handler ----------
 
 document.onkeydown = document.body.onkeydown = (e) => {
-	  if(e.keyCode == 68) {
-	  	player.moveRight();
-	  } else if (e.keyCode == 65){ 
-	  	player.moveLeft();
-	  }
+    if(e.keyCode == 68) {
+        player.moveRight();
+    } else if (e.keyCode == 65){ 
+        player.moveLeft();
     }
+  }
 
 document.onkeyup = document.body.onkeyup = (e) => {
-	  if(e.keyCode == 68 || e.keyCode == 65) {
-        player.xVelocity = 0;
-      }
-      if(e.keyCode == 32){
-        player.yVelocity = 0;
-      }
+    if(e.keyCode == 68 || e.keyCode == 65) {
+      player.xVelocity = 0;
     }
+    if(e.keyCode == 32){
+      player.yVelocity = 0;
+    }
+  }
 
 document.onkeypress = document.onkeypress = (e) => {
-    if(e.keyCode == 32){
-        player.jump();
-    }
+  if(e.keyCode == 32){
+      player.jump();
+  }
 }
 
 // ---------- Game Function ----------
@@ -105,13 +104,27 @@ function collisionDetector(obj) {
         obj.gForce = 10;
     }
 }
+function warpPlayer(player){
+    if((player.x+player.width < 0)){
+        player.x = 1000;
+    }
+    else if(player.x > 1000){
+        player.x = 0;
+    }
+    else if(player.y+player.height < -40){
+        player.y = 500;
+    }
+    else if(player.y > 500){
+        player.y = -50;
+    }
+}
 
 // ---------- Game Loop ----------
 
 function load() {
     draw.canvas(1200, 750, "#383434");
     draw.map();
-    player = new Entity(500, 100, 50, 80, "#9ce2a0");
+    player = new Entity(500, 0, 50, 80, "#9ce2a0");
     setInterval(game, 33); // 33ms ~ 30fps (defalut = 33ms)
 }
 
@@ -124,6 +137,7 @@ function render() {
 
 function game() { //update here
     collisionDetector(player);
+    warpPlayer(player);
     player.updatePos();
     render();
 }
