@@ -9,7 +9,7 @@ var enemy;
 var enemy2;
 var level = [];
 var counterJ;
-var statusjump=0;
+var statusjump = 0;
 var faceHit = "R";
 
 
@@ -32,6 +32,7 @@ function Entity(x, y, width, height, color, hp) {
 	this.status = 0;
 	this.gForce = 10;
 	this.hp = 1
+	this.ammo = 5;
 
 	this.entityUpdate = function entityUpdate() {
 		ctx.fillStyle = this.color;
@@ -55,6 +56,10 @@ function Entity(x, y, width, height, color, hp) {
 		this.yVelocity = -20;
 		statusjump = 1;
 	}
+
+	this.reload = () => {
+		this.ammo = 5;
+	}
 	return this;
 }
 
@@ -76,7 +81,9 @@ function enemyMovement(obj){
     }
 }
 
-document.body.addEventListener('keydown', function(e){
+// ---------- KeyEvent Handler ----------
+
+document.body.addEventListener('keydown', (e) => {
 	if(e.code == 'KeyD') {
 		player.moveRight();
 		faceHit = "R";
@@ -86,27 +93,33 @@ document.body.addEventListener('keydown', function(e){
 	} else if (e.code == 'KeyL' && player.status == 1){
 		player.jump();
 		player.status = 0;
-	}else if(e.code == 'KeyK'){
+	} else if (e.code == 'KeyJ'){
+		player.reload();
+		console.log("Reload!");
+	} else if(e.code == 'KeyK' && player.ammo != 0) {
 		if(faceHit == "L"){
-			lazer = new Entity(player.x, player.y+(player.height/2)+1, 0-player.x, 5, "red");
-			lazer.updatePos();
-			lazer.entityUpdate();
-			lazer.gForce = 0;
+			laser = new Entity(player.x, player.y+(player.height/2)+1, 0-player.x, 5, "red");
+			laser.gForce = 0;
+			laser.updatePos();
+			laser.entityUpdate();
+			player.ammo -= 1;
 			if(player.y == enemy.y && player.x > enemy.x){
 				enemy.y = -100;
 				enemy.hp = 0;
 			}
 		}
 		else if(faceHit == "R"){
-			lazer = new Entity(player.x+player.width, player.y+(player.height/2)+1, 1200-player.x, 5, "red");
-			lazer.updatePos();
-			lazer.entityUpdate();
-			lazer.gForce = 0;
+			laser = new Entity(player.x+player.width, player.y+(player.height/2)+1, 1200-player.x, 5, "red");
+			laser.gForce = 0;
+			laser.updatePos();
+			laser.entityUpdate();
+			player.ammo -= 1;
 			if(player.y == enemy.y && player.x < enemy.x){
 				enemy.y = -100;
 				enemy.hp = 0;
 			}
 	}
+	console.log("Ammo left :", player.ammo);
 }});
 
 document.body.addEventListener('keyup', function(e){
@@ -116,6 +129,8 @@ document.body.addEventListener('keyup', function(e){
 		player.yVelocity = 0;
 	}
 });
+
+// ---------- Game Function ---------
 
 const draw = {
 	canvas : function drawCanvas(width, height, color) {
@@ -147,7 +162,7 @@ function collisionDetector(obj) {
 		obj.status = 0;
 	}
 }
-function warpPlayer(player){
+function warp(player){
 	if((player.x+player.width < 0)){
 		player.x = 1000;
 	}
@@ -159,7 +174,7 @@ function warpPlayer(player){
 	}
 }
 
-function Jtest(player){ // counterj = Y (before jump)
+function jumpLimit(player){ // counterj = Y (before jump)
 	let j1 = (((player.y+player.height) == level[0].y)&&((player.x+player.width >= level[0].x)&&(player.x <= level[0].x+level[0].width))&&(statusjump == 0));
 	let j2 = (((player.y+player.height) == level[1].y)&&((player.x+player.width >= level[1].x)&&(player.x <= level[1].x+level[1].width))&&(statusjump == 0));
 	let j3 = (((player.y+player.height) == level[2].y)&&((player.x+player.width >= level[2].x)&&(player.x <= level[2].x+level[2].width))&&(statusjump == 0));
