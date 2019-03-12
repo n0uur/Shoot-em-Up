@@ -6,6 +6,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 var player;
 var enemy;
+var enemy2;
 var level = [];
 var counterJ;
 var statusjump=0;
@@ -57,22 +58,22 @@ function Entity(x, y, width, height, color, hp) {
 	return this;
 }
 
-function testEnemy(){
-	let xDiff = player.x - enemy.x;
-	if(Math.abs(xDiff) <= 150 && player.y == enemy.y){
-		if(player.x > enemy.x){
-			enemy.xVelocity = 6;
-		} else if(player.x < enemy.x){
-			enemy.xVelocity = -6;
-		}
-	} else {
-		let x = Math.floor(Math.random() * 30) + 1;
-		if(x == 1){
-			enemy.xVelocity = 4;
-		} else if(x == 2){
-			enemy.xVelocity = -4;
-		}
-	}
+function enemyMovement(obj){
+    let xDiff = player.x - obj.x;
+    if(Math.abs(xDiff) <= 150 && player.y == obj.y){
+        if(player.x > obj.x){
+            obj.xVelocity = 6;
+        } else if(player.x < obj.x){
+            obj.xVelocity = -6;
+        }
+    } else {
+        let x = Math.floor(Math.random() * 30) + 1;
+        if(x == 1){
+            obj.xVelocity = 4;
+        } else if(x == 2){
+            obj.xVelocity = -4;
+        }
+    }
 }
 
 document.body.addEventListener('keydown', function(e){
@@ -187,32 +188,40 @@ function tophit(){
 // ---------- Game Loop ----------
 
 function load() {
-	draw.canvas(1200, 750, "#383434");
-	draw.map();
-	player = new Entity(500, 10, 50, 80, "#9ce2a0");
-	enemy = new Entity(300, 50, 50, 80, "pink");
-	setInterval(game, 33); // 33ms ~ 30fps (defalut = 33ms)
+    draw.canvas(1200, 750, "#383434");
+    draw.map();
+    player = new Entity(500, 10, 50, 80, "#9ce2a0");
+    enemy = new Entity(300, 50, 50, 80, "pink")
+    enemy2 = new Entity(700, 50, 50, 80, "purple")
+    setInterval(game, 33); // 33ms ~ 30fps (defalut = 33ms)
 }
 
 function render() {
-	draw.canvas(1000, 500, "#383434"); //render Canvas first
-	draw.map(); // than render map
-	player.entityUpdate(); // than everything else
-	enemy.entityUpdate();
+    draw.canvas(1000, 500, "#383434"); //render Canvas first
+    draw.map(); // than render map
+    player.entityUpdate(); // than everything else
+    enemy.entityUpdate();
+    enemy2.entityUpdate();
 }
 
 function game() { //update here
-	collisionDetector(player);
-	collisionDetector(enemy);
-	warpPlayer(player);
-	warpPlayer(enemy);
-	testEnemy();
-	Jtest(player); // player.y(before jump)
-	console.log(player.color, enemy.color);
+    collisionDetector(player);
+    collisionDetector(enemy);
+    collisionDetector(enemy2);
+    warpPlayer(player);
+    warpPlayer(enemy);
+    warpPlayer(enemy2);
+    enemyMovement(enemy);
+    enemyMovement(enemy2);
+    Jtest(player); // player.y(before jump)
+    console.log(player.y, counterJ, statusjump);
+    player.updatePos();   
+    enemy.updatePos();
+    enemy2.updatePos();
+
+    render();
 	tophit();
-	player.updatePos();
 	if(enemy.hp == 1){
 		enemy.updatePos();
 	}
-	render();
 }
