@@ -31,7 +31,7 @@ function Entity(x, y, width, height, color, hp) {
 	this.score = 0;
 	this.status = 0;
 	this.gForce = 10;
-	this.hp = hp || 1;
+	this.hp = hp;
 	this.ammo = 5;
 
 	this.entityUpdate = function entityUpdate() {
@@ -94,8 +94,14 @@ document.body.addEventListener('keydown', function(e){
 			lazer.entityUpdate();
 			lazer.gForce = 0;
 			if(player.y == enemy.y && player.x > enemy.x){
-				enemy.y = -100;
 				enemy.hp = 0;
+				enemy.y = -100;
+				enemy.gForce = 0;
+			}
+			else if(player.y == enemy2.y && player.x > enemy2.x){
+				enemy2.hp = 0;
+				enemy2.y = -100;
+				enemy2.gForce = 0;
 			}
 		}
 		else if(faceHit == "R"){
@@ -104,11 +110,16 @@ document.body.addEventListener('keydown', function(e){
 			lazer.entityUpdate();
 			lazer.gForce = 0;
 			if(player.y == enemy.y && player.x < enemy.x){
-				enemy.y = -100;
 				enemy.hp = 0;
+				enemy.y = -100;
+				enemy.gForce = 0;
 			}
-	}
-}});
+			else if(player.y == enemy2.y && player.x < enemy2.x){
+				enemy2.hp = 0;
+				enemy2.y = -100;
+				enemy2.gForce = 0;
+			}
+}}});
 
 document.body.addEventListener('keyup', function(e){
 	if(e.code == 'KeyD' || e.code == 'KeyA') {
@@ -191,9 +202,9 @@ function tophit(){
 function load() {
     draw.canvas(1200, 750, "#383434");
     draw.map();
-    player = new Entity(500, 10, 50, 80, "#9ce2a0");
-    enemy = new Entity(300, 50, 50, 80, "pink")
-    enemy2 = new Entity(700, 50, 50, 80, "purple")
+    player = new Entity(500, 10, 50, 80, "#9ce2a0", 1);
+    enemy = new Entity(300, 50, 50, 80, "pink", 1);
+    enemy2 = new Entity(700, 50, 50, 80, "purple", 1);
     setInterval(game, 33); // 33ms ~ 30fps (defalut = 33ms)
 }
 
@@ -207,22 +218,21 @@ function render() {
 
 function game() { //update here
     collisionDetector(player);
-    collisionDetector(enemy);
-    collisionDetector(enemy2);
-    warpPlayer(player);
-    warpPlayer(enemy);
-    warpPlayer(enemy2);
-    enemyMovement(enemy);
-    enemyMovement(enemy2);
+	warpPlayer(player);
     Jtest(player); // player.y(before jump)
-    console.log(player.y, counterJ, statusjump);
     player.updatePos();   
-    enemy.updatePos();
-    enemy2.updatePos();
-
-    render();
 	tophit();
 	if(enemy.hp == 1){
 		enemy.updatePos();
+		collisionDetector(enemy);
+		warpPlayer(enemy);
+		enemyMovement(enemy);
 	}
+	if(enemy2.hp == 1){
+		enemy2.updatePos();
+		collisionDetector(enemy2);
+		warpPlayer(enemy2);
+		enemyMovement(enemy2);
+	}
+    render();
 }
