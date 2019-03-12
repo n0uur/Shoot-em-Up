@@ -31,7 +31,8 @@ function Entity(x, y, width, height, color, hp) {
 	this.score = 0;
 	this.status = 0;
 	this.gForce = 10;
-	this.hp = 1
+	this.hp = hp || 1;
+	this.ammo = 5;
 
 	this.entityUpdate = function entityUpdate() {
 		ctx.fillStyle = this.color;
