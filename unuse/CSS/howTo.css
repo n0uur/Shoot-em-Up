@@ -1,14 +1,16 @@
 body {
-	padding: 0;
-	margin: 0;
-	background-image: url(../IMG/dev_bg.jpg);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
+    padding: 0;
+    margin: 0;
+    /*background-image: url(../IMG/bg4.png);
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;*/
     display: flex;
-    min-height: 100vh;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f5f5f5;
+
 }
 /*============================================================*/
 /*sideBar*/
@@ -106,8 +108,8 @@ ul li a {
 /*============================================================*/
 
 img {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 }
 
 .container{
@@ -123,17 +125,14 @@ img {
 .container .box {
     border-radius: 0.5em;
     position: relative;
-    padding: 80px 0px 40px;
+    padding: 40px;
     transition: 0.5s;
     text-align: center;
     background: #595959;
-    margin-top: 100px;
-    transform: scale(1);
 }
 
 .container .box:hover {
     background: #383434;
-    transform: scale(1.1);
 }
 
 .container .box h3 {
@@ -147,20 +146,9 @@ img {
     color: #fff;
 }
 
-/*.container .box:hover h3,
-.container .box:hover p {
-    color: green;
-}
-*/
 .container .box .img_box {
-    transition: 0.5s;
     position: absolute;
-    top: -85px;
+    top: -60px;
     left: 50%;
     transform: translate(-50%);
 }
-
-.container .box:hover .img_box {
-    top: -100px;
-}
-
