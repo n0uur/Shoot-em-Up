@@ -116,7 +116,7 @@ ul li a {
 /*============================================================*/
 
 .swiper-container {
-	background-color: red;
+	background-color: rgba(255, 0, 0, 0);
   	height: 500px;
 	width: 500px;
 }
