@@ -16,11 +16,16 @@ body {
 }
 
 img {
+    transition: 1s;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.box:hover img {
+    filter: blur(0.5em);
 }
 
 p {
@@ -59,6 +64,7 @@ li:hover {
     width: 150px;
     height: 150px;
     border-radius: 100%;
+    /*-webkit-transition: 0.5s;*/
     transition: 0.5s;
     animation: animate 0.5s linear infinite;
     animation-play-state: paused;
@@ -81,10 +87,15 @@ li:hover {
 }
 
 .loader span {
+    transition: 0.5s;
     position: absolute;
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    background: linear-gradient(#a5a5a5, #727272, #494949);
+}
+
+.box:hover .loader span {
     background: linear-gradient(#14ffe5, #ffeb3b, #ff00e0);
 }
 
@@ -122,3 +133,22 @@ p {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.text_bottom {
+    transition: 0.5s;
+    position: absolute;
+    padding-top: 55px;
+    font-size: 45px;
+    color: rgba(76, 175, 80, 0.0);
+    text-align: center;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.box:hover .text_bottom {
+    opacity: 100%;
+    padding-top: 75px;
+    color: rgba(76, 175, 80, 1);
+}
+

@@ -1,15 +1,14 @@
 body {
     padding: 0;
     margin: 0;
-    /*background-image: url(../IMG/bg4.png);
+    background-image: url(../IMG/bg4.png);
     background-repeat: no-repeat;
     background-position: top;
-    background-size: cover;*/
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #f5f5f5;
 
 }
 /*============================================================*/
@@ -107,48 +106,17 @@ ul li a {
 /*Container*/
 /*============================================================*/
 
-img {
-    width: 100px;
-    height: 100px;
-}
-
-.container{
+.container {
     width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    grid-gap: 20px;
-    box-sizing: border-box;
-    padding: 20px;
+    height: 700px;
+    background-color: red;
 }
 
-.container .box {
-    border-radius: 0.5em;
-    position: relative;
-    padding: 40px;
-    transition: 0.5s;
-    text-align: center;
-    background: #595959;
-}
-
-.container .box:hover {
-    background: #383434;
-}
-
-.container .box h3 {
-    color: #fff;
-}
-
-.container .box p {
-    text-transform: uppercase;
-    font-weight: 500px;
-    transition: 0.5s;
-    color: #fff;
-}
-
-.container .box .img_box {
+.pop {
     position: absolute;
-    top: -60px;
-    left: 50%;
-    transform: translate(-50%);
+    width: 1300px;
+    height: 800px;
+    background-color: rgb(0,0,100,0.5);
 }
+
+

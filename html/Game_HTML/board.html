@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+    <link rel="stylesheet" type="text/css" href="CSS/board.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.sidebarBtn').click(function(){
+                $('.sidebar').toggleClass('active');
+                $('.sidebarBtn').toggleClass('toggle');
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="img_box">
+                <img src="IMG/com_1.png">
+            </div>
+            <h3>NAME</h3>
+            <p>
+                point
+            </p>
+        </div>
+        <div class="box" style="top: -140px">
+            <div class="img_box">
+                <img src="IMG/com_1.png">
+            </div>
+            <h3>NAME</h3>
+            <p>
+                point
+            </p>
+        </div>
+        <div class="box">
+            <div class="img_box">
+                <img src="IMG/com_1.png">
+            </div>
+            <h3>NAME</h3>
+            <p>
+                point
+            </p>
+        </div>
+    </div>
+    <div class="board">
+        <ul>
+            <li>
+                <img src="IMG/com_1.png">
+                <h3>NAME</h3>
+                <p>POINT</p>
+            </li>
+            <li>
+                <img src="IMG/com_1.png">
+                <h3>NAME</h3>
+                <p>POINT</p>
+            </li>
+            <li>
+                <img src="IMG/com_1.png">
+                <h3>NAME</h3>
+                <p>POINT</p>
+            </li>
+            <li>
+                <img src="IMG/com_1.png">
+                <h3>NAME</h3>
+                <p>POINT</p>
+            </li>
+            <li>
+                <img src="IMG/com_1.png">
+                <h3>NAME</h3>
+                <p>POINT</p>
+            </li>
+            <li>
+                <img src="IMG/com_1.png">
+                <h3>NAME</h3>
+                <p>POINT</p>
+            </li>
+            <li>
+                <img src="IMG/com_1.png">
+                <h3>NAME</h3>
+                <p>POINT</p>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="howTo.html">How To Play</a></li>
+            <li><a href="#">Score Board</a></li>
+            <li><a href="dev.html">Dev Team</a></li>
+        </ul>
+        <button class="sidebarBtn">
+            <span></span>
+        </button>
+    </div>
+</body>
+</html>
