@@ -8,6 +8,8 @@ var player, enemy, enemy2, counterJ;
 var level = [];
 var statusjump = 0;
 var faceHit = "R";
+var loopplay = 0;
+var enemyPS = 0;
 
 
 function Rectangle(x, y, width, height, color) {
@@ -64,16 +66,16 @@ function enemyMovement(obj){
     let xDiff = player.x - obj.x;
     if(Math.abs(xDiff) <= 150 && player.y == obj.y){
         if(player.x > obj.x){
-            obj.xVelocity = 6;
+            obj.xVelocity = (6+enemyPS);
         } else if(player.x < obj.x){
-            obj.xVelocity = -6;
+            obj.xVelocity = -(6+enemyPS);
         }
     } else {
         let x = Math.floor(Math.random() * 30) + 1;
         if(x == 1){
-            obj.xVelocity = 4;
+            obj.xVelocity = (4+enemyPS);
         } else if(x == 2){
-            obj.xVelocity = -4;
+            obj.xVelocity = -(4+enemyPS);
         }
     }
 }
@@ -98,15 +100,17 @@ document.body.addEventListener('keydown', (e) => {
 			laser.updatePos();
 			laser.entityUpdate();
 			player.ammo -= 1;
-			if(player.y == enemy.y && player.x > enemy.x){
+			if((((player.y+(player.height/2)+1) >= enemy.y) && ((player.y+(player.height/2)+1) <= enemy.y+enemy.height))&& player.x > enemy.x){
 				enemy.hitPoint = 0;
 				enemy.y = -100;
 				enemy.gForce = 0;
+				loopplay++;
 			}
-			else if(player.y == enemy2.y && player.x > enemy2.x){
+			else if((((player.y+(player.height/2)+1) >= enemy2.y) && ((player.y+(player.height/2)+1) <= enemy2.y+enemy.height)) && player.x > enemy2.x){
 				enemy2.hitPoint = 0;
 				enemy2.y = -100;
 				enemy2.gForce = 0;
+				loopplay++;
 			}
 		}
 		else if(faceHit == "R"){
@@ -115,15 +119,17 @@ document.body.addEventListener('keydown', (e) => {
 			laser.updatePos();
 			laser.entityUpdate();
 			player.ammo -= 1;
-			if(player.y == enemy.y && player.x < enemy.x){
+			if((((player.y+(player.height/2)+1) >= enemy.y) && ((player.y+(player.height/2)+1) <= enemy.y+enemy.height)) && player.x < enemy.x){
 				enemy.hitPoint = 0;
 				enemy.y = -100;
 				enemy.gForce = 0;
+				loopplay++;
 			}
-			else if(player.y == enemy2.y && player.x < enemy2.x){
+			else if((((player.y+(player.height/2)+1) >= enemy2.y) && ((player.y+(player.height/2)+1) <= enemy2.y+enemy2.height)) && player.x < enemy2.x){
 				enemy2.hitPoint = 0;
 				enemy2.y = -100;
 				enemy2.gForce = 0;
+				loopplay++;
 			}
 		}
 		console.log("Ammo Left :", player.ammo);
@@ -196,13 +202,13 @@ function jumpLimit(player){ // counterj = Y (before jump)
 		statusjump = 0;
 	}
 }
-function tophit(){
-	if ((player.y+player.height == enemy.y)&&(player.x+player.width >= enemy.x)&&(player.x <= enemy.x+enemy.width)){
+function tophit(obj){
+	if ((player.y+player.height == obj.y)&&(player.x+player.width >= obj.x)&&(player.x <= obj.x+obj.width)){
 		player.jump();
 		player.status = 0;
-		enemy.y = -100;
-		enemy.hitPoint = 0;
-
+		obj.y = -100;
+		obj.hitPoint = 0;
+		loopplay++;
 	}
 }
 
@@ -231,7 +237,15 @@ function game() { //update here
 	parallax(player);
     jumpLimit(player); // player.y(before jump)
     player.updatePos();   
-	tophit();
+	tophit(enemy);
+	tophit(enemy2);
+	if(loopplay == 2){
+		enemy.hitPoint = 1;
+		enemy2.hitPoint = 1;
+		enemyPS+=2;
+		loopplay = 0;
+	}
+	console.log(loopplay);
 	if(enemy.hitPoint == 1){
 		enemy.updatePos();
 		collisionDetector(enemy);
