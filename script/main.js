@@ -2,6 +2,26 @@
 // Hand-crafted with Love ♥ //
 /////////////////////////////
 
+
+/*============================================================*/
+/*Link To HTML*/
+/*============================================================*/
+
+var html_theLife = 30;
+var html_theRound = 6;
+var html_theScore = 100;
+
+function updateHTML() {
+	var lift = document.querySelector('.game_bar div:nth-child(1) .life_energy_bg');
+	theScore.innerHTML = html_theScore;
+	theRound.innerHTML = html_theRound;
+	lift.style.setProperty('--lift', html_theLife+"%");
+}
+
+/*============================================================*/
+/*Link To HTML*/
+/*============================================================*/
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 var player, enemy, enemy2, counterJ;
@@ -84,7 +104,7 @@ document.body.addEventListener('keydown', (e) => {
 	if(e.code == 'KeyD') {
 		player.moveRight();
 		faceHit = "R";
-	} else if (e.code == 'KeyA'){ 
+	} else if (e.code == 'KeyA'){
 		player.moveLeft();
 		faceHit = "L"
 	} else if (e.code == 'KeyL' && player.status == 1){
@@ -158,7 +178,7 @@ const draw = {
 		let platform2 = new Rectangle(170,370,300,10, "red");//top2
 		let platform3 = new Rectangle(570,370,300,10, "red");//top3
 		level = [platform1, platform2, platform3];
-		
+
 	}
 }
 function collisionDetector(obj) { //Check if player is on platform
@@ -236,7 +256,7 @@ function game() { //update here
     collisionDetector(player);
 	parallax(player);
     jumpLimit(player); // player.y(before jump)
-    player.updatePos();   
+    player.updatePos();
 	tophit(enemy);
 	tophit(enemy2);
 	if(loopplay == 2){
@@ -258,5 +278,6 @@ function game() { //update here
 		parallax(enemy2);
 		enemyMovement(enemy2);
 	}
+	updateHTML();
     render();
 }
