@@ -5,6 +5,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .bar {
@@ -115,11 +116,11 @@ li:hover {
 }
 
 .text_title {
-    width: 800px;
-    height: 150px;
+    width: 1200px;
+    height: 125px;
     border: 7px solid #383434;
     position: absolute;
-    margin: auto;;
+    margin: auto;
     top: 0;
     left: 0;
     right: 0;
@@ -127,28 +128,28 @@ li:hover {
 }
 
 p {
+    margin: 0;
+    padding: 0;
     position: absolute;
     font-size: 100px;
     margin-top: 20px;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .text_bottom {
     transition: 0.5s;
     position: absolute;
-    padding-top: 55px;
-    font-size: 45px;
+    padding-top: 60px;
+    font-size: 35px;
     color: rgba(76, 175, 80, 0.0);
     text-align: center;
     text-transform: uppercase;
-    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
 }
 
 .box:hover .text_bottom {
     opacity: 100%;
-    padding-top: 75px;
+    padding-top: 85px;
     color: rgba(76, 175, 80, 1);
 }
 

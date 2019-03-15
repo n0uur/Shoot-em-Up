@@ -145,7 +145,7 @@ ul li a {
     width: 300px;
     height: 65px;
     border-radius: 50px;
-    border: 5px solid blue;
+    border: 5px solid #383434;
     background-color: grey;
 }
 
@@ -186,7 +186,7 @@ ul li a {
     width: 300px;
     height: 65px;
     border-radius: 50px;
-    background-color: blue;
+    background-color: #383434;
 }
 
 .game_bar div:nth-child(3) p {
@@ -205,7 +205,7 @@ ul li a {
     width: 150px;
     height: 150px;
     border-radius: 10px;
-    background-color: blue;
+    background-color: #383434;
 }
 
 .game_bar div:nth-child(2) p {

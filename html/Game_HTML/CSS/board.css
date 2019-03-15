@@ -5,7 +5,7 @@ body {
     background-repeat: no-repeat;
     background-position: top;
     background-size: cover;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Press Start 2P', cursive;
 }
 /*============================================================*/
 /*sideBar*/
@@ -29,7 +29,6 @@ ul{
 }
 ul li {
     list-style: none;
-    font-family: verdana;
 }
 ul li a {
     padding: 10px 20px;
@@ -103,13 +102,13 @@ ul li a {
 /*============================================================*/
 
 .container .box:nth-child(1) {
-    background-color: green;
+    background-color: #C0C0C0;
 }
 .container .box:nth-child(2) {
-    background-color: red;
+    background-color: #FFD700;
 }
 .container .box:nth-child(3) {
-    background-color: blue;
+    background-color: #cd7f32;
 }
 
 img {
@@ -150,25 +149,24 @@ img {
 }
 
 .container .box:hover {
-    background: #383434;
     transform: scale(1.1);
 }
 
 .container .box h3 {
     position: inherit;
-    top: -80px;
-    font-size: 50px;
-    color: #fff;
+    top: -50px;
+    font-size: 40px;
+    color: #383434;
 }
 
 .container .box p {
     position: inherit;
-    top: -30px;
+    top: 0px;
     font-size: 30px;
     text-transform: uppercase;
     font-weight: 500px;
     transition: 0.5s;
-    color: #fff;
+    color: #383434;
 }
 
 .container .box .img_box {
@@ -228,7 +226,7 @@ img {
     bottom: 0;
     height: 80px;
     width: 90%;
-    background-color: green;
+    background-color: #383434;
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
@@ -238,18 +236,20 @@ img {
 
 .board ul li h3 {
     position: relative;
-    top: 35%;
+    top: 40%;
     margin: 0;
     padding: 0;
     margin-left: 30px;
+    color: #fff;
 }
 
 .board ul li p {
     position: relative;
-    top: 36%;
+    top: 44%;
     margin: 0;
     padding: 0;
     margin-left: 460px;
+    color: #fff;
 }
 
 .board ul li:hover {
