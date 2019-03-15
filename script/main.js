@@ -7,15 +7,31 @@
 /*Link To HTML*/
 /*============================================================*/
 
-var html_theLife = 30;
-var html_theRound = 6;
-var html_theScore = 100;
+var html_theLife = 100;
+var html_theRound = 1;
+var html_theScore = 0;
 
 function updateHTML() {
 	var lift = document.querySelector('.game_bar div:nth-child(1) .life_energy_bg');
 	theScore.innerHTML = html_theScore;
 	theRound.innerHTML = html_theRound;
 	lift.style.setProperty('--lift', html_theLife+"%");
+
+	if (html_theRound == 9) {
+		html_theRound = 1;
+	} else {
+		html_theRound += 1;
+	}
+	if (html_theScore == 9999) {
+		html_theScore = 0;
+	} else {
+		html_theScore += 186;
+	}
+	if (html_theLife == 10) {
+		html_theLife = 100;
+	} else {
+		html_theLife -= 0.08;
+	}
 }
 
 /*============================================================*/
