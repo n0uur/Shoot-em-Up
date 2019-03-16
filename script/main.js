@@ -25,12 +25,7 @@ function updateHTML() {
 	if (html_theScore == 9999) {
 		html_theScore = 0;
 	} else {
-		html_theScore += 186;
-	}
-	if (html_theLife == 10) {
-		html_theLife = 100;
-	} else {
-		html_theLife -= 0.08;
+		html_theScore = player.score;
 	}
 }
 
@@ -46,6 +41,7 @@ var statusjump = 0;
 var faceHit = "R";
 var loopplay = 0;
 var enemyPS = 0;
+var endgame = 0;
 
 
 function Rectangle(x, y, width, height, color) {
@@ -123,8 +119,12 @@ document.body.addEventListener('keydown', (e) => {
 	} else if (e.code == 'KeyA'){
 		player.moveLeft();
 		faceHit = "L"
+	}else if((e.code == 'KeyH') && (player.score >= 300)){
+		player.score -= 300;
+		html_theLife += (100 - html_theLife);
 	} else if (e.code == 'KeyL' && player.status == 1){
 		player.jump();
+		timejump+=1;
 		player.status = 0;
 	} else if (e.code == 'KeyJ') {
 		player.reload();
@@ -138,15 +138,17 @@ document.body.addEventListener('keydown', (e) => {
 			player.ammo -= 1;
 			if((((player.y+(player.height/2)+1) >= enemy.y) && ((player.y+(player.height/2)+1) <= enemy.y+enemy.height))&& player.x > enemy.x){
 				enemy.hitPoint = 0;
-				enemy.y = -100;
+				enemy.y = -500;
 				enemy.gForce = 0;
 				loopplay++;
+				player.score +=100;
 			}
 			else if((((player.y+(player.height/2)+1) >= enemy2.y) && ((player.y+(player.height/2)+1) <= enemy2.y+enemy.height)) && player.x > enemy2.x){
 				enemy2.hitPoint = 0;
-				enemy2.y = -100;
+				enemy2.y = -500;
 				enemy2.gForce = 0;
 				loopplay++;
+				player.score +=100;
 			}
 		}
 		else if(faceHit == "R"){
@@ -157,15 +159,17 @@ document.body.addEventListener('keydown', (e) => {
 			player.ammo -= 1;
 			if((((player.y+(player.height/2)+1) >= enemy.y) && ((player.y+(player.height/2)+1) <= enemy.y+enemy.height)) && player.x < enemy.x){
 				enemy.hitPoint = 0;
-				enemy.y = -100;
+				enemy.y = -500;
 				enemy.gForce = 0;
 				loopplay++;
+				player.score +=100;
 			}
 			else if((((player.y+(player.height/2)+1) >= enemy2.y) && ((player.y+(player.height/2)+1) <= enemy2.y+enemy2.height)) && player.x < enemy2.x){
 				enemy2.hitPoint = 0;
-				enemy2.y = -100;
+				enemy2.y = -500;
 				enemy2.gForce = 0;
 				loopplay++;
+				player.score +=100;
 			}
 		}
 		console.log("Ammo Left :", player.ammo);
@@ -245,6 +249,15 @@ function tophit(obj){
 		obj.y = -100;
 		obj.hitPoint = 0;
 		loopplay++;
+		player.score +=100;
+	}
+}
+function enemyattack(obj){
+	if(((obj.y+obj.height == player.y)&&(obj.x+obj.width >= player.x)&&(obj.x <= player.x+player.width))){
+		html_theLife -= 1;
+	}
+	if((((obj.x <= player.x+player.width) && (obj.x+obj.width >= player.x))&&((obj.y <= player.y+player.height) && (obj.y+obj.width >= player.y)))){
+		html_theLife -= 1;
 	}
 }
 
@@ -262,38 +275,51 @@ function load() {
 function render() {
     draw.canvas(1000, 500, "#383434"); //render Canvas first
 	draw.map(); // than render map
-	player.color = '#'+Math.floor(Math.random()*16777215).toString(16);
     player.entityUpdate(); // than render everything else
     enemy.entityUpdate();
     enemy2.entityUpdate();
 }
 
 function game() { //update here
-    collisionDetector(player);
-	parallax(player);
-    jumpLimit(player); // player.y(before jump)
-    player.updatePos();
-	tophit(enemy);
-	tophit(enemy2);
-	if(loopplay == 2){
-		enemy.hitPoint = 1;
-		enemy2.hitPoint = 1;
-		enemyPS+=2;
-		loopplay = 0;
+	if(html_theLife > 0){
+		collisionDetector(player);
+		parallax(player);
+		jumpLimit(player); // player.y(before jump)
+		enemyattack(enemy);
+		enemyattack(enemy2);
+		player.updatePos();
+		tophit(enemy);
+		tophit(enemy2);
+		if(loopplay == 2){
+			enemy.hitPoint = 1;
+			enemy2.hitPoint = 1;
+			enemyPS+=2;
+			loopplay = 0;
+		}
+		console.log(loopplay);
+		if(enemy.hitPoint == 1){
+			enemy.updatePos();
+			collisionDetector(enemy);
+			parallax(enemy);
+			enemyMovement(enemy);
+		}
+		if(enemy2.hitPoint == 1){
+			enemy2.updatePos();
+			collisionDetector(enemy2);
+			parallax(enemy2);
+			enemyMovement(enemy2);
+		}
+		if(html_theLife == 100){
+			player.color = "#9ce2a0";
+		}
+		if(html_theLife == 75){
+			player.color = "#fffc27";
+		}
+		if(html_theLife == 50){
+			player.color = "red";
+		}
+		updateHTML();
+		console.log(timejump);
+		render();
 	}
-	console.log(loopplay);
-	if(enemy.hitPoint == 1){
-		enemy.updatePos();
-		collisionDetector(enemy);
-		parallax(enemy);
-		enemyMovement(enemy);
-	}
-	if(enemy2.hitPoint == 1){
-		enemy2.updatePos();
-		collisionDetector(enemy2);
-		parallax(enemy2);
-		enemyMovement(enemy2);
-	}
-	updateHTML();
-    render();
 }
