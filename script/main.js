@@ -10,13 +10,15 @@
 var html_theLife = 100;
 var html_theRound = 1;
 var html_theScore = 0;
+var html_theAmmo = 100;
 
 function updateHTML() {
 	html_theScore = player.score;
-
+	html_theAmmo = player.ammo;
 	var lift = document.querySelector('.game_bar div:nth-child(1) .life_energy_bg');
 	theScore.innerHTML = html_theScore;
 	theRound.innerHTML = html_theRound;
+	theAmmo.innerHTML = html_theAmmo;
 	lift.style.setProperty('--lift', html_theLife+"%");
 }
 
@@ -329,6 +331,6 @@ function game() { //update here
 		render();
 	}
 	else{
-		alert(player.score);
+		alert("Your Score : "+player.score);
 	}
 }
