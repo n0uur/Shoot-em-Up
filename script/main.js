@@ -33,8 +33,9 @@ var faceHit = "R";
 var loopplay = 0;
 var enemySp = 0;
 var endgame = 0;
-var enemyDmg = 1;
 var enemyArray = [];
+var bullet = 3;//MergeMere//
+var enemyDmg = 1;
 
 
 function Rectangle(x, y, width, height, color) {
@@ -56,7 +57,7 @@ function Entity(x, y, width, height, color, hitPoint) {
 	this.status = 0;
 	this.gForce = 10;
 	this.hitPoint = hitPoint;
-	this.ammo = 5;
+	this.ammo = bullet;//MergeMere//
 
 	this.entityUpdate = function entityUpdate() {
 		ctx.fillStyle = this.color;
@@ -82,7 +83,7 @@ function Entity(x, y, width, height, color, hitPoint) {
 	}
 
 	this.reload = () => {
-		this.ammo = 5;
+		this.ammo = bullet;//MergeMere//
 	}
 	return this;
 }
@@ -115,6 +116,12 @@ document.body.addEventListener('keydown', (e) => {
 	}else if((e.code == 'KeyH') && (player.score >= 300) &&(html_theLife > 20)){
 		player.score -= 300;
 		html_theLife += (100 - html_theLife);
+	} else if ((e.code == 'Digit1') && (player.score >= 2000) && (enemyDmg > 0.5)){//MergeMere//
+		player.score -= 2000;
+		enemyDmg *= 0.8;
+	} else if ((e.code == 'Digit2') && (player.score >= 500)){//MergeMere//
+		player.score -= 500;
+		bullet += 1;
 	} else if (e.code == 'KeyL' && player.status == 1){
 		player.jump();
 		player.status = 0;
@@ -240,10 +247,10 @@ function tophit(obj){
 }
 function enemyattack(obj){
 	if(((obj.y+obj.height == player.y)&&(obj.x+obj.width >= player.x)&&(obj.x <= player.x+player.width))){
-		html_theLife -= enemyDmg;
+		html_theLife -= enemyDmg;//MergeMere//
 	}
 	if((((obj.x <= player.x+player.width) && (obj.x+obj.width >= player.x))&&((obj.y <= player.y+player.height) && (obj.y+obj.width >= player.y)))){
-		html_theLife -= enemyDmg;
+		html_theLife -= enemyDmg;//MergeMere//
 	}
 }
 
