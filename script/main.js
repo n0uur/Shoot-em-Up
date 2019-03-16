@@ -124,7 +124,6 @@ document.body.addEventListener('keydown', (e) => {
 		html_theLife += (100 - html_theLife);
 	} else if (e.code == 'KeyL' && player.status == 1){
 		player.jump();
-		timejump+=1;
 		player.status = 0;
 	} else if (e.code == 'KeyJ') {
 		player.reload();
@@ -319,7 +318,6 @@ function game() { //update here
 			player.color = "red";
 		}
 		updateHTML();
-		console.log(timejump);
 		render();
 	}
 }
