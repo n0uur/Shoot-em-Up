@@ -1,5 +1,5 @@
 ///////////////////////////////
-// Hand-crafted with Love ♥ //
+// Hand-crafted with Love ? //
 /////////////////////////////
 
 
@@ -31,8 +31,10 @@ var level = [];
 var statusjump = 0;
 var faceHit = "R";
 var loopplay = 0;
-var enemyPS = 0;
+var enemySp = 0;
 var endgame = 0;
+var enemyDmg = 1;
+var enemyArray = [];
 
 
 function Rectangle(x, y, width, height, color) {
@@ -89,16 +91,16 @@ function enemyMovement(obj){
     let xDiff = player.x - obj.x;
     if(Math.abs(xDiff) <= 150 && player.y == obj.y){
         if(player.x > obj.x){
-            obj.xVelocity = (6+enemyPS);
+            obj.xVelocity = (6+enemySp);
         } else if(player.x < obj.x){
-            obj.xVelocity = -(6+enemyPS);
+            obj.xVelocity = -(6+enemySp);
         }
     } else {
         let x = Math.floor(Math.random() * 30) + 1;
         if(x == 1){
-            obj.xVelocity = (4+enemyPS);
+            obj.xVelocity = (4+enemySp);
         } else if(x == 2){
-            obj.xVelocity = -(4+enemyPS);
+            obj.xVelocity = -(4+enemySp);
         }
     }
 }
@@ -110,7 +112,7 @@ document.body.addEventListener('keydown', (e) => {
 	} else if (e.code == 'KeyA'){
 		player.moveLeft();
 		faceHit = "L"
-	}else if((e.code == 'KeyH') && (player.score >= 300)){
+	}else if((e.code == 'KeyH') && (player.score >= 300) &&(html_theLife > 20)){
 		player.score -= 300;
 		html_theLife += (100 - html_theLife);
 	} else if (e.code == 'KeyL' && player.status == 1){
@@ -126,20 +128,17 @@ document.body.addEventListener('keydown', (e) => {
 			laser.updatePos();
 			laser.entityUpdate();
 			player.ammo -= 1;
-			if((((player.y+(player.height/2)+1) >= enemy.y) && ((player.y+(player.height/2)+1) <= enemy.y+enemy.height))&& player.x > enemy.x){
-				enemy.hitPoint = 0;
-				enemy.y = -500;
-				enemy.gForce = 0;
-				loopplay++;
-				player.score +=100;
-			}
-			else if((((player.y+(player.height/2)+1) >= enemy2.y) && ((player.y+(player.height/2)+1) <= enemy2.y+enemy.height)) && player.x > enemy2.x){
-				enemy2.hitPoint = 0;
-				enemy2.y = -500;
-				enemy2.gForce = 0;
-				loopplay++;
-				player.score +=100;
-			}
+			enemyArray.forEach((obj) => {
+				if((((player.y+(player.height/2)+1) >= obj.y) && ((player.y+(player.height/2)+1) <= obj.y+obj.height))&& player.x > obj.x) {
+					obj.hitPoint = 0;
+					obj.y = -500;
+					obj.gForce = 0;
+					loopplay+=1;
+					player.score +=100;
+					html_theRound+=1;
+					enemySp+=0.5;
+				}
+			});
 		}
 		else if(faceHit == "R"){
 			laser = new Entity(player.x+player.width, player.y+(player.height/2)+1, 1200-player.x, 5, "red");
@@ -147,20 +146,17 @@ document.body.addEventListener('keydown', (e) => {
 			laser.updatePos();
 			laser.entityUpdate();
 			player.ammo -= 1;
-			if((((player.y+(player.height/2)+1) >= enemy.y) && ((player.y+(player.height/2)+1) <= enemy.y+enemy.height)) && player.x < enemy.x){
-				enemy.hitPoint = 0;
-				enemy.y = -500;
-				enemy.gForce = 0;
-				loopplay++;
-				player.score +=100;
-			}
-			else if((((player.y+(player.height/2)+1) >= enemy2.y) && ((player.y+(player.height/2)+1) <= enemy2.y+enemy2.height)) && player.x < enemy2.x){
-				enemy2.hitPoint = 0;
-				enemy2.y = -500;
-				enemy2.gForce = 0;
-				loopplay++;
-				player.score +=100;
-			}
+			enemyArray.forEach((obj) => {
+				if((((player.y+(player.height/2)+1) >= obj.y) && ((player.y+(player.height/2)+1) <= obj.y+obj.height)) && player.x < obj.x){
+					obj.hitPoint = 0;
+					obj.y = -500;
+					obj.gForce = 0;
+					loopplay+=1;
+					player.score +=100;
+					html_theRound+=1;
+					enemySp+=0.5;
+				}
+			});
 		}
 		console.log("Ammo Left :", player.ammo);
 	}
@@ -238,17 +234,27 @@ function tophit(obj){
 		player.status = 0;
 		obj.y = -100;
 		obj.hitPoint = 0;
-		loopplay++;
+		loopplay+=1;
 		player.score +=100;
 	}
 }
 function enemyattack(obj){
 	if(((obj.y+obj.height == player.y)&&(obj.x+obj.width >= player.x)&&(obj.x <= player.x+player.width))){
-		html_theLife -= 1;
+		html_theLife -= enemyDmg;
 	}
 	if((((obj.x <= player.x+player.width) && (obj.x+obj.width >= player.x))&&((obj.y <= player.y+player.height) && (obj.y+obj.width >= player.y)))){
-		html_theLife -= 1;
+		html_theLife -= enemyDmg;
 	}
+}
+
+function enemySpawner() {
+	for (let i = 0; i < 3; i++) {
+		let foo = new Entity(Math.floor(Math.random() * 800), (Math.floor(Math.random()) * 300), 50, 80, "red");
+		enemyArray[i] = foo;
+	}
+	enemyArray.forEach((obj) => {
+		console.log(obj.x);
+	});
 }
 
 // ---------- Game Loop ----------
@@ -256,49 +262,53 @@ function enemyattack(obj){
 function load() {
     draw.canvas(1000, 500, "#383434");
     draw.map();
-    player = new Entity(500, 10, 50, 80, "#9ce2a0", 1);
-    enemy = new Entity(300, 50, 50, 80, "pink", 1);
-    enemy2 = new Entity(700, 50, 50, 80, "purple", 1);
+	player = new Entity(500, 10, 50, 80, "#9ce2a0", 1);
+	enemySpawner();
     setInterval(game, 33); // 33ms ~ 30fps (defalut = 33ms)
 }
 
 function render() {
     draw.canvas(1000, 500, "#383434"); //render Canvas first
 	draw.map(); // than render map
-    player.entityUpdate(); // than render everything else
-    enemy.entityUpdate();
-    enemy2.entityUpdate();
+	player.entityUpdate(); // than render everything else
+	enemyArray.forEach((obj) => {
+		obj.updatePos();
+		obj.entityUpdate();
+	});
 }
 
 function game() { //update here
-	if(html_theLife > 0){
+	if(html_theLife > 20){
 		collisionDetector(player);
 		parallax(player);
 		jumpLimit(player); // player.y(before jump)
-		enemyattack(enemy);
-		enemyattack(enemy2);
+		enemyArray.forEach((obj) => {
+			enemyattack(obj);
+			tophit(obj);
+			collisionDetector(obj);
+			enemyMovement(obj);
+			parallax(obj);
+		});
+
 		player.updatePos();
-		tophit(enemy);
-		tophit(enemy2);
-		if(loopplay == 2){
-			enemy.hitPoint = 1;
-			enemy2.hitPoint = 1;
-			enemyPS+=2;
-			loopplay = 0;
-		}
-		console.log(loopplay);
-		if(enemy.hitPoint == 1){
-			enemy.updatePos();
-			collisionDetector(enemy);
-			parallax(enemy);
-			enemyMovement(enemy);
-		}
-		if(enemy2.hitPoint == 1){
-			enemy2.updatePos();
-			collisionDetector(enemy2);
-			parallax(enemy2);
-			enemyMovement(enemy2);
-		}
+
+		// if(loopplay == 3){
+		// 	enemyArray.forEach((obj) => {
+		// 		obj.hitPoint = 1
+		// 		enemySp += 0.5;
+		// 		loopplay = 0;
+		// 		html_theRound +=1;
+		// 	});
+		// }
+		enemyArray.forEach((obj) => {
+			if(obj.hitPoint == 1){
+				obj.updatePos();
+				collisionDetector(obj);
+				parallax(obj);
+				enemyMovement(obj);
+			}
+		});
+
 		if(html_theLife == 100){
 			player.color = "#9ce2a0";
 		}
@@ -310,5 +320,8 @@ function game() { //update here
 		}
 		updateHTML();
 		render();
+	}
+	else{
+		alert(player.score);
 	}
 }
