@@ -13,7 +13,7 @@ var board = [
 ]
 
 function main() {
-    input();
+    // input();
     sort();
     updateBoard();
 

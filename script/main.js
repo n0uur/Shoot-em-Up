@@ -12,21 +12,12 @@ var html_theRound = 1;
 var html_theScore = 0;
 
 function updateHTML() {
+	html_theScore = player.score;
+
 	var lift = document.querySelector('.game_bar div:nth-child(1) .life_energy_bg');
 	theScore.innerHTML = html_theScore;
 	theRound.innerHTML = html_theRound;
 	lift.style.setProperty('--lift', html_theLife+"%");
-
-	if (html_theRound == 9) {
-		html_theRound = 1;
-	} else {
-		html_theRound += 1;
-	}
-	if (html_theScore == 9999) {
-		html_theScore = 0;
-	} else {
-		html_theScore = player.score;
-	}
 }
 
 /*============================================================*/
