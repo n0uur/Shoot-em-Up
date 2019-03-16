@@ -200,7 +200,7 @@ ul li a {
 
 .game_bar div:nth-child(2) {
     top: -30px;
-    width: 150px;
+    /*width: 150px;*/
     height: 150px;
     border-radius: 10px;
     background-color: #383434;
@@ -215,6 +215,7 @@ ul li a {
     bottom: 0;
     font-size: 120px;
     text-align: center;
+    /*background-color: #383434;*/
 }
 
 .title_text {
