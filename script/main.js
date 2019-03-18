@@ -29,9 +29,7 @@ function updateHTML() {
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 var player, enemy, enemy2, counterJ;
-var level = [];
 var statusjump = 0;
-var faceHit = "R";
 var loopplay = 0;
 var enemySp = 0;
 var endgame = 0;
