@@ -37,6 +37,15 @@ var enemyArray = [];
 var bullet = 3;//MergeMere//
 var enemyDmg = 1;
 
+// ---------- Image ---------
+
+var enemyImage = new Image(50, 80);
+enemyImage.src = '../../asset/enemy.gif'
+var charImage = new Image(50, 80);
+charImage.src = '../../asset/char.gif'
+
+// --------- Constructor ---------
+
 
 function Rectangle(x, y, width, height, color) {
 	this.x = x;
@@ -49,7 +58,7 @@ function Rectangle(x, y, width, height, color) {
 	return this;
 }
 
-function Entity(x, y, width, height, color, hitPoint) {
+function Entity(x, y, width, height, color, hitPoint, image) {
 	Rectangle.call(this, x, y, width, height, color);
 	this.xVelocity = 0;
 	this.yVelocity = 0;
@@ -57,11 +66,13 @@ function Entity(x, y, width, height, color, hitPoint) {
 	this.status = 0;
 	this.gForce = 10;
 	this.hitPoint = hitPoint;
+	this.image = image;
 	this.ammo = bullet;//MergeMere//
 
 	this.entityUpdate = function entityUpdate() {
-		ctx.fillStyle = this.color;
-		ctx.fillRect(this.x, this.y, this.width, this.height);
+		ctx.drawImage(this.image, this.x, this.y);
+		// ctx.fillStyle = this.color;
+		// ctx.fillRect(this.x, this.y, this.width, this.height);
 	}
 
 	this.updatePos = function updatePos() {
@@ -256,7 +267,7 @@ function enemyattack(obj){
 
 function enemySpawner() {
 	for (let i = 0; i < 3; i++) {
-		let foo = new Entity(Math.floor(Math.random() * 800), (Math.floor(Math.random()) * 300), 50, 80, "red");
+		let foo = new Entity(Math.floor(Math.random() * 800), (Math.floor(Math.random()) * 300), 50, 80, "red", 1, enemyImage);
 		enemyArray[i] = foo;
 	}
 	enemyArray.forEach((obj) => {
@@ -269,7 +280,7 @@ function enemySpawner() {
 function load() {
     draw.canvas(1000, 500, "#383434");
     draw.map();
-	player = new Entity(500, 10, 50, 80, "#9ce2a0", 1);
+	player = new Entity(500, 10, 50, 80, "#9ce2a0", 1, charImage);
 	enemySpawner();
     setInterval(game, 33); // 33ms ~ 30fps (defalut = 33ms)
 }
@@ -298,15 +309,6 @@ function game() { //update here
 		});
 
 		player.updatePos();
-
-		// if(loopplay == 3){
-		// 	enemyArray.forEach((obj) => {
-		// 		obj.hitPoint = 1
-		// 		enemySp += 0.5;
-		// 		loopplay = 0;
-		// 		html_theRound +=1;
-		// 	});
-		// }
 		enemyArray.forEach((obj) => {
 			if(obj.hitPoint == 1){
 				obj.updatePos();
