@@ -43,6 +43,8 @@ var enemyImage = new Image(50, 80);
 enemyImage.src = '../../asset/enemy.gif'
 var charImage = new Image(50, 80);
 charImage.src = '../../asset/char.gif'
+var wallImage = new Image(1000, 500);
+wallImage.src = '../../asset/wall.jpg'
 
 // --------- Constructor ---------
 
@@ -71,8 +73,6 @@ function Entity(x, y, width, height, color, hitPoint, image) {
 
 	this.entityUpdate = function entityUpdate() {
 		ctx.drawImage(this.image, this.x, this.y);
-		// ctx.fillStyle = this.color;
-		// ctx.fillRect(this.x, this.y, this.width, this.height);
 	}
 
 	this.updatePos = function updatePos() {
@@ -189,18 +189,18 @@ document.body.addEventListener('keyup', function(e){
 });
 
 const draw = {
-	canvas : function drawCanvas(width, height, color) {
+	canvas : function drawCanvas(width, height, image) {
 		this.width = width;
 		this.height = height;
+		this.image = image;
 		canvas.width = width;
 		canvas.height = height;
-		ctx.fillStyle = color;
-		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		ctx.drawImage(this.image, 0, 0);
 	},
 	map : function drawMap() { // Draw map and keep all platform in array
-		let platform1 = new Rectangle(370,170,300,10, "red");//top1
-		let platform2 = new Rectangle(170,370,300,10, "red");//top2
-		let platform3 = new Rectangle(570,370,300,10, "red");//top3
+		let platform1 = new Rectangle(370,170,300,10, "#133468");//top1
+		let platform2 = new Rectangle(170,370,300,10, "#133468");//top2
+		let platform3 = new Rectangle(570,370,300,10, "#133468");//top3
 		level = [platform1, platform2, platform3];
 
 	}
@@ -278,7 +278,7 @@ function enemySpawner() {
 // ---------- Game Loop ----------
 
 function load() {
-    draw.canvas(1000, 500, "#383434");
+    draw.canvas(1000, 500, wallImage);
     draw.map();
 	player = new Entity(500, 10, 50, 80, "#9ce2a0", 1, charImage);
 	enemySpawner();
@@ -286,7 +286,7 @@ function load() {
 }
 
 function render() {
-    draw.canvas(1000, 500, "#383434"); //render Canvas first
+    draw.canvas(1000, 500, wallImage); //render Canvas first
 	draw.map(); // than render map
 	player.entityUpdate(); // than render everything else
 	enemyArray.forEach((obj) => {
