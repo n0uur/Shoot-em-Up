@@ -1,5 +1,5 @@
 ///////////////////////////////
-// Hand-crafted with Love ? //
+// Hand-crafted with Love ♥ //
 /////////////////////////////
 
 
@@ -141,10 +141,10 @@ document.body.addEventListener('keydown', (e) => {
 		console.log("Reload!");
 	}else if(e.code == 'KeyK' && player.ammo != 0){
 		if(faceHit == "L"){
-			laser = new Entity(player.x, player.y+(player.height/2)+1, 0-player.x, 5, "red");
-			laser.gForce = 0;
-			laser.updatePos();
-			laser.entityUpdate();
+			laser = new Rectangle(player.x, player.y+(player.height/2)+1, 0-player.x, 5, "red");
+			// laser.gForce = 0;
+			// laser.updatePos();
+			// laser.entityUpdate();
 			player.ammo -= 1;
 			enemyArray.forEach((obj) => {
 				if((((player.y+(player.height/2)+1) >= obj.y) && ((player.y+(player.height/2)+1) <= obj.y+obj.height))&& player.x > obj.x) {
@@ -159,10 +159,10 @@ document.body.addEventListener('keydown', (e) => {
 			});
 		}
 		else if(faceHit == "R"){
-			laser = new Entity(player.x+player.width, player.y+(player.height/2)+1, 1200-player.x, 5, "red");
-			laser.gForce = 0;
-			laser.updatePos();
-			laser.entityUpdate();
+			laser = new Rectangle(player.x+player.width, player.y+(player.height/2)+1, 1200-player.x, 5, "red");
+			// laser.gForce = 0;
+			// laser.updatePos();
+			// laser.entityUpdate();
 			player.ammo -= 1;
 			enemyArray.forEach((obj) => {
 				if((((player.y+(player.height/2)+1) >= obj.y) && ((player.y+(player.height/2)+1) <= obj.y+obj.height)) && player.x < obj.x){
