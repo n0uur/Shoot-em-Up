@@ -282,7 +282,7 @@ function load() {
     draw.map();
 	player = new Entity(500, 10, 50, 80, "#9ce2a0", 1, charImage);
 	enemySpawner();
-    setInterval(game, 33); // 33ms ~ 30fps (defalut = 33ms)
+    setInterval(game, 13); // 33ms ~ 30fps (defalut = 33ms)
 }
 
 function render() {
@@ -334,5 +334,11 @@ function game() { //update here
 	else if (!alerted){
 		alerted = true;
 		alert("Your Score : "+player.score);
+		// destroy player object
+		player = {}
+		enemyArray = []
+		html_theLife = 100
+		enemySpawner();
+		player = new Entity(500, 10, 50, 80, "#9ce2a0", 1, charImage);
 	}
 }
