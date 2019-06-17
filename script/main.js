@@ -327,10 +327,12 @@ function game() { //update here
 		if(html_theLife == 50){
 			player.color = "red";
 		}
+		alerted = false;
 		updateHTML();
 		render();
 	}
-	else{
+	else if (!alerted){
+		alerted = true;
 		alert("Your Score : "+player.score);
 	}
 }
