@@ -4,12 +4,46 @@
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="CSS/home.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <script type="text/javascript">
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires="+d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        window.onload = function() {
+            // load bestscore cookies
+            if (getCookie("bestscore") != "")
+                bestscore = getCookie("bestscore")
+            else
+                bestscore = 0
+            document.getElementById("bestscore").innerHTML = bestscore;
+        };
+    </script>
 </head>
 <body>
     <iframe width="0" height="0" src="https://www.youtube.com/embed/HW3l3IpcjP0?rel=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div class="text_title">
         <p>SHOOT EM UP</p>
     </div>
+    <dev class="text_title2" style="margin:auto;color:white;margin-top:30px">
+        <h1>BEST SCORE : <bestscore id="bestscore">0</bestscore></h1>
+    </dev>
     <div class="bar">
         <ul>
             <li><a href="game.html">
