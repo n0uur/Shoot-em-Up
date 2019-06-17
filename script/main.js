@@ -103,16 +103,16 @@ function enemyMovement(obj){
     let xDiff = player.x - obj.x;
     if(Math.abs(xDiff) <= 150 && player.y == obj.y){
         if(player.x > obj.x){
-            obj.xVelocity = (6+enemySp);
+            obj.xVelocity = (2+enemySp);
         } else if(player.x < obj.x){
-            obj.xVelocity = -(6+enemySp);
+            obj.xVelocity = -(2+enemySp);
         }
     } else {
         let x = Math.floor(Math.random() * 30) + 1;
         if(x == 1){
-            obj.xVelocity = (4+enemySp);
+            obj.xVelocity = (1+enemySp);
         } else if(x == 2){
-            obj.xVelocity = -(4+enemySp);
+            obj.xVelocity = -(1+enemySp);
         }
     }
 }
@@ -282,7 +282,7 @@ function load() {
     draw.map();
 	player = new Entity(500, 10, 50, 80, "#9ce2a0", 1, charImage);
 	enemySpawner();
-    setInterval(game, 13); // 33ms ~ 30fps (defalut = 33ms)
+    setInterval(game, 30); // 33ms ~ 30fps (defalut = 33ms)
 }
 
 function render() {
