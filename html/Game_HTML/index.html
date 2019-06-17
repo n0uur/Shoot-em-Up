@@ -11,7 +11,6 @@
             var expires = "expires="+d.toUTCString();
             document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         }
-
         function getCookie(cname) {
             var name = cname + "=";
             var ca = document.cookie.split(';');
@@ -36,6 +35,15 @@
                 
             }
             document.getElementById("bestscore").innerHTML = bestscore;
+			
+			// load last score cookies
+            if (getCookie("lastscore") != "")
+                lastscore = getCookie("lastscore")
+            else
+            {
+                lastscore = 0
+            }
+            document.getElementById("lastscore").innerHTML = lastscore;
         };
     </script>
 </head>
@@ -46,6 +54,9 @@
     </div>
     <div class="text_title2">
 		<h1>BEST SCORE : <bestscore id="bestscore">0</bestscore></h1>
+	</div>
+	<div class="text_title3">
+		<h1>LAST SCORE : <lastscore id="lastscore">0</lastscore></h1>
 	</div>
 	<div class="bar">
         <ul>

@@ -360,6 +360,7 @@ function game() { //update here
 		{
 			setCookie("bestscore", player.score, 365);
 		}
+		setCookie("lastscore", player.score, 365);
 		alert("Your Score : "+player.score);
 		// destroy player object
 		player = {}
